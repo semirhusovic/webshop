@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::get('/dashboard', function () {
 Route::resource('/slider',SliderController::class);
 Route::resource('/product',ProductController::class);
 Route::resource('/country', CountryController::class);
+Route::resource('/manufacturer', ManufacturerController::class);
 
 
 require __DIR__.'/auth.php';
