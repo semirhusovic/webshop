@@ -1,0 +1,10 @@
+.slide-text {
+    font-size: 1.2rem;
+    font-family: "Comic Sans MS", serif;
+    position: absolute;
+    top: 10rem;
+    left: 5rem;
+    color: white;
+    background: #2dd4bf;
+    padding: 5px;
+}
