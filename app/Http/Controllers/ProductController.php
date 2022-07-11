@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Image;
+use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -18,7 +20,9 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('dashboard.product.create');
+        $manufacturers = Manufacturer::all();
+        $countries = Country::all();
+        return view('dashboard.product.create',['manufacturers' => $manufacturers,'countries' => $countries]);
     }
 
     public function store(StoreProductRequest $request)

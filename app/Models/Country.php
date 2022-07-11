@@ -11,6 +11,7 @@ class Country extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
     public $timestamps = false;
+    protected $guarded = [];
     public $translatedAttributes = ['countryName'];
 
     public function products()

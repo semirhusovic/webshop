@@ -11,22 +11,19 @@ class CountryController extends Controller
 
     public function index()
     {
-        return Country::all();
+        $countries = Country::all();
+        return view('dashboard.country.index',["countries" => $countries]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('dashboard.country.create');
     }
 
     public function store(StoreCountryRequest $request)
     {
-        $newCountry = Country::query()->create([$request->all()]);
+        $newCountry = Country::query()->create($request->all());
+        return redirect()->route('country.index');
     }
 
     /**
@@ -40,37 +37,19 @@ class CountryController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Country $country)
     {
-        //
+        return view('dashboard.country.edit',['country' => $country]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCountryRequest  $request
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        //
+        $country->updateOrFail($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return redirect()->route('country.index');
     }
 }
