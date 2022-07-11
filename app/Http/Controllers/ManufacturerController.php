@@ -2,85 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreManufacturerRequest;
 use App\Http\Requests\UpdateManufacturerRequest;
 
 class ManufacturerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $manufacturers = Manufacturer::all();
+        return view('dashboard.manufacturer.index',["manufacturers" => $manufacturers]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('dashboard.manufacturer.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreManufacturerRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreManufacturerRequest $request)
     {
-        //
+        $newCountry = Manufacturer::query()->create($request->all());
+        return redirect()->route('manufacturer.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
     public function show(Manufacturer $manufacturer)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Manufacturer $manufacturer)
     {
-        //
+        return view('dashboard.manufacturer.edit',['manufacturer' => $manufacturer]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateManufacturerRequest  $request
-     * @param  \App\Models\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
-        //
+        $manufacturer->updateOrFail($request->all());
+        return redirect()->route('manufacturer.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Manufacturer $manufacturer)
     {
-        //
+        $manufacturer->delete();
+        return redirect()->route('manufacturer.index');
     }
 }
