@@ -3,11 +3,11 @@
         <h2
             class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
         >
-            Country
+            Manufacturer
         </h2>
         <div class="px-6 my-6 w-3/5">
-            <a href="{{route('country.create')}}" class="inline-block items-center justify-between  px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Create new country
+            <a href="{{route('manufacturer.create')}}" class="inline-block items-center justify-between  px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Create new manufacturer
                 <span class="ml-2" aria-hidden="true">+</span>
             </a>
         </div>
@@ -25,10 +25,10 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-                @foreach($countries as $country)
+                @foreach($manufacturers as $manufacturer)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            {{$country->countryName}}
+                            {{$manufacturer->manufacturerName}}
                         </td>
 {{--                        <td class="px-4 py-3 text-xs">--}}
 {{--                        <span class="px-2 py-1 font-semibold leading-tight {{ $slide->isActive ? 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100' : 'text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100' }} rounded-full">--}}
@@ -40,13 +40,13 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
-                                <a href="{{route('country.edit',$country->id)}}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+                                <a href="{{route('manufacturer.edit',$manufacturer->id)}}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                                     </svg>
                                 </a>
 
-                                <form method="post" action="{{route('country.destroy',$country->id)}}">
+                                <form method="post" action="{{route('manufacturer.destroy',$manufacturer->id)}}">
                                     @csrf
                                     @method('DELETE')
                                     <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">

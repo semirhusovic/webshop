@@ -1,32 +1,22 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Create new slider
+            Create new manufacturer
         </h2>
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
             <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-            <form action="{{route('country.store')}}" method="POST">
+            <form action="{{route('manufacturer.store')}}" method="POST">
                 @csrf
 
                 <!-- Slide title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Country name</span>
-                    <input value="{{old('en[countryName]')}}" name="en[countryName]"
+                    <span class="text-gray-700 dark:text-gray-400">Manufacturer name</span>
+                    <input value="{{old('manufacturerName')}}" name="manufacturerName"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="Slide name">
-                </label>
-                <!-- End slide title -->
-
-                <!-- Slide title -->
-                <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Country name </span>
-                    <span class="text-red-600">[SR]</span>
-                    <input value="{{old('sr[countryName]')}}" name="sr[countryName]"
-                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="Slide name">
+                           placeholder="Type name here">
                 </label>
                 <!-- End slide title -->
 
