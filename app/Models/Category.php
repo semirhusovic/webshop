@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
+    protected $guarded = [];
     public $translatedAttributes = ['categoryName'];
-
 
     public function products()
     {

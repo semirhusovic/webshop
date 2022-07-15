@@ -2,46 +2,51 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Models\Product;
-use App\Models\Slider;
 
 class CategoryController extends Controller
 {
-
     public function index()
     {
-        $categories = Category::whereNull('category_id')
-            ->with('subcategories')
-            ->get();
-
-        $sliders = Slider::query()->where('isActive','=','1')->orderBy('order')->get();
-
-        return view('welcome', compact('categories','sliders'));
+        $categories = Category::all();
+        return view('dashboard.category.index', ["categories" => $categories]);
     }
+
+    public function create()
+    {
+        return view('dashboard.category.create', ['categories' => Category::all()]);
+    }
+
+    public function store(StoreCategoryRequest $request)
+    {
+        $newCategory = Category::query()->create($request->all());
+        return redirect()->route('category.index');
+    }
+
 
     public function show(Category $category)
     {
-        $category->load('subcategories.subcategories');
-
-        $subcategoryIDs = [$category->id];
-        foreach ($category->subcategories as $subcategory) {
-            $subcategoryIDs[] = $subcategory->id;
-            foreach ($subcategory->subcategories as $subsubcategory) {
-                $subcategoryIDs[] = $subsubcategory->id;
-            }
-        }
-
-        $products = Product::whereHas('categories', function($query) use ($subcategoryIDs) {
-            $query->whereIn('categories.id', $subcategoryIDs);
-        })->get();
-
-        return view('categories.show', compact('category', 'products'));
+        //
     }
 
+    public function edit(Category $category)
+    {
+        $categories = Category::all();
+        return view('dashboard.category.edit', ['category' => $category, 'categories' => $categories]);
+    }
 
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        $category->updateOrFail($request->all());
+        return redirect()->route('category.index');
+    }
 
-
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('category.index');
+    }
 }

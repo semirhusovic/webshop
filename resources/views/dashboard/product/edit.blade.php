@@ -1,19 +1,20 @@
 <x-dashboard>
-    <div class="container px-6 mx-auto grid">
+    <div class="container px-6 mx-auto grid my-4">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Create new product
+            Edit product : {{$product->productName}}
         </h2>
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('product.update',$product->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                @method('PUT')
                 <!-- title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
                     <input name="en[productName]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="Product 1">
+                           placeholder="Product 1"
+                           value="{{$product->translations[0]->productName}}">
                 </label>
 
 
@@ -22,7 +23,8 @@
                     <span class="text-red-600">[SR]</span>
                     <input name="sr[productName]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="Product 1">
+                           placeholder="Product 1"
+                           value="{{$product->translations[1]->productName}}">
                 </label>
                 <!--title -->
 
@@ -31,7 +33,8 @@
                     <span class="text-gray-700 dark:text-gray-400">Product price</span>
                     <input name="productPrice"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="12">
+                           placeholder="12"
+                           value="{{$product->productPrice}}">
                 </label>
                 <!-- End price -->
 
@@ -40,7 +43,8 @@
                     <span class="text-gray-700 dark:text-gray-400">Product discount price</span>
                     <input name="productDiscountPrice"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="7">
+                           placeholder="7"
+                           value="{{$product->productDiscountPrice}}">
                 </label>
                 <!-- End discount price -->
 
@@ -49,7 +53,7 @@
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
                     <textarea name="en[productDescription]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product"></textarea>
+                              placeholder="Description of your product">{{$product->translations[0]->productDescription}}</textarea>
                 </label>
 
                 <label class="block text-sm">
@@ -57,7 +61,7 @@
                     <span class="text-red-600">[SR]</span>
                     <textarea name="sr[productDescription]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product"></textarea>
+                              placeholder="Description of your product">{{$product->translations[1]->productDescription}}</textarea>
                 </label>
                 <!-- End discount price -->
 
@@ -66,7 +70,8 @@
                     <span class="text-gray-700 dark:text-gray-400">Manufacturing date</span>
                     <input type="date" name="productManufacturingDate"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="http://www.google.com">
+                           placeholder="24"
+                    value="{{$product->productManufacturingDate}}">
                 </label>
                 <!-- End slide link -->
 
@@ -76,7 +81,8 @@
                     <span class="text-gray-700 dark:text-gray-400">Months of warrancy</span>
                     <input name="productMonthsOfWarranty"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="24">
+                           placeholder="24"
+                           value="{{$product->productMonthsOfWarranty}}">
                 </label>
                 <!-- End slide link -->
 
@@ -90,27 +96,27 @@
                             <option></option>
                             @foreach($countries as $country)
                                 <option
-                                    value="{{$country->id}}" {{ old('country_id' == $country->id ? 'selected' : '')}}>{{$country->countryName}}</option>
+                                    value="{{$country->id}}" {{ $product->country_id == $country->id ? 'selected' : ''}}>{{$country->countryName}}</option>
                             @endforeach
                         </select>
                     </label>
                 </div>
-
-
                 <div>
                     <label class="block mt-4 text-sm">
                          <span class="text-gray-700 dark:text-gray-400">
                   Choose category
                 </span>
-                    <select
-                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                        id="select-category" name="category[]" multiple
-                        autocomplete="off">
-{{--                        <option value="">Select a category...</option>--}}
-                        @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->categoryName}}</option>
-                        @endforeach
-                    </select>
+                        <select
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            id="select-category" name="category[]" multiple
+                            autocomplete="off">
+                            @foreach ($product->categories as $ct)
+                                <option value="{{$ct->id}}" selected>{{$ct->categoryName}}</option>
+                            @endforeach
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}">{{$category->categoryName}}</option>
+                            @endforeach
+                        </select>
                     </label>
                 </div>
 
@@ -125,12 +131,20 @@
                             <option></option>
                             @foreach($manufacturers as $manufacturer)
                                 <option
-                                    value="{{$manufacturer->id}}" {{ old('manufacturer_id' == $manufacturer->id ? 'selected' : '')}}>{{$manufacturer->manufacturerName}}</option>
+                                    value="{{$manufacturer->id}}" {{ $product->manufacturer_id == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturerName}}</option>
                             @endforeach
                         </select>
                     </label>
                 </div>
 
+                <div class="flex space-x-4">
+                    @foreach($product->images as $image)
+                        <div class="rounded h-96">
+                            <img class="object-fill h-64 w-64" src="/public/img/{{$image->fileName}}" alt=""
+                                 loading="lazy">
+                        </div>
+                    @endforeach
+                </div>
 
                 <!-- Drop upload -->
                 <div style="margin-top: 1rem; " class="my-5 flex justify-center items-center w-full">
@@ -152,19 +166,18 @@
                 </div>
                 <!-- End drop upload -->
 
-
                 <button style="margin-top: 1rem; "
                         class="my-5 px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    Create
+                    Update
                 </button>
 
             </form>
-            <script>
-                new TomSelect("#select-category", {
-                    maxItems: 3
-                });
-            </script>
         </div>
     </div>
-
+    <script>
+        new TomSelect("#select-category", {
+            plugins: ['remove_button'],
+            create: true,
+        });
+    </script>
 </x-dashboard>
