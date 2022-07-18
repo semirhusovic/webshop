@@ -13,6 +13,7 @@ class Product extends Model implements TranslatableContract
 
     protected $guarded = [];
     public $timestamps = false;
+    protected $perPage = 5;
     public $translatedAttributes = ['productName', 'productDescription'];
 
     public function categories()
@@ -36,5 +37,10 @@ class Product extends Model implements TranslatableContract
 
     public function users(){
         return $this->belongsToMany(User::class);
+    }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Product::class);
     }
 }

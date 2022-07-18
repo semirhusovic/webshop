@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSliderRequest extends FormRequest
@@ -16,21 +17,26 @@ class StoreSliderRequest extends FormRequest
         return true;
     }
 
-//'title' => $request->title,
-//'link' => $request->link,
-//'order' => $request->order,
-//'duration' => $request->duration,
-//'isActive' => $request->isActive ? 1 : 0
 
     public function rules()
     {
         return [
-//            'title' => ['required','string','min:5','max:40'],
+            'en.title' => ['required','string','min:5','max:40'],
+            'sr.title' => ['required','string','min:5','max:40'],
             'link' => ['required','string','min:5','max:40'],
             'duration' => ['required','integer','min:1','max:15'],
             'isActive' => ['required'],
-            'order' => ['integer','unique:sliders','min:1','max:5'],
-            'image' => ['required','mimes:jpeg,png,jpg']
+            'order' => ['required','integer','unique:sliders','min:1','max:5'],
+            'image' => ['required','mimes:jpeg,png,jpg'],
+        ];
+
+    }
+
+    public function messages()
+    {
+        return [
+            'sr.title.required' => 'The title in Serbian is required.',
+            'en.title.required' => 'The title in English is required.',
         ];
     }
 }

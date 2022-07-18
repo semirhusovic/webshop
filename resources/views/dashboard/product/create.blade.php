@@ -5,6 +5,9 @@
         </h2>
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+
+            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+
             <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 

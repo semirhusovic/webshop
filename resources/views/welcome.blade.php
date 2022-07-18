@@ -30,9 +30,9 @@
     </div>
 
 
-    {{--    <ul class="list-disc">--}}
-    {{--        @include('categories.subcategories', ['categories' => $categories])--}}
-    {{--    </ul>--}}
+        <ul class="list-disc">
+            @include('categories.subcategories', ['categories' => $categories])
+        </ul>
 
 
     {{--    Items--}}

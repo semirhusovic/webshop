@@ -11,5 +11,13 @@ class Promotion extends Model  implements TranslatableContract
 {
     use HasFactory,Translatable;
     protected $guarded = [];
+    protected $perPage = 5;
     public $translatedAttributes = ['promotionName'];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
 }
+

@@ -24,7 +24,16 @@ class StoreCountryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'en.countryName' => ['required','string','min:3','max:40'],
+            'sr.countryName' => ['required','string','min:3','max:40']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'sr.countryName.required' => 'The country name in Serbian is required.',
+            'en.countryName.required' => 'The country name in English is required.',
         ];
     }
 }

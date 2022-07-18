@@ -2,85 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Manufacturer;
+use App\Models\Product;
 use App\Models\Promotion;
 use App\Http\Requests\StorePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
 
 class PromotionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $promotions = Promotion::query()->paginate();
+        return view('dashboard.promotion.index',['promotions'=>$promotions]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $products = Product::all();
+        $manufacturers = Manufacturer::all();
+        return view('dashboard.promotion.create',['categories'=>$categories,'products'=>$products,'manufacturers'=>$manufacturers]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePromotionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StorePromotionRequest $request)
     {
-        //
+        $promotion = Promotion::query()->create($request->only('en','sr'));
+//        dump($request);
+        $filteredProducts = Product::query()
+            ->join('category_product','products.id','=','product_id')
+            ->join('categories','categories.id','=','category_product.category_id')
+            ->when($request->category, function($query) use ($request){
+                $query->whereIn("category_product.category_id",$request->category);
+            })
+            ->when($request->products, function($query) use ($request){
+                $query->whereIn("category_product.product_id",$request->products);
+            })
+            ->when($request->price_from, function($query) use ($request){
+                $query->where("products.productPrice", ">=", $request->price_from);
+            })
+            ->when($request->price_to, function($query) use ($request){
+                $query->where("products.productPrice", "<=", $request->price_to);
+            })
+            ->when($request->manufacturer, function($query) use ($request){
+                $query->where("products.manufacturer_id", "=", $request->manufacturer);
+            })
+            ->select(['products.id'])
+            ->distinct()
+            ->get();
+//        dump($filteredProducts);
+        $promotion->products()->attach($filteredProducts);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Promotion  $promotion
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Promotion $promotion)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Promotion  $promotion
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Promotion $promotion)
     {
-        //
+        $categories = Category::all();
+        $products = Product::all();
+        $manufacturers = Manufacturer::all();
+        return view('dashboard.promotion.edit',['categories'=>$categories,'products'=>$products,'manufacturers'=>$manufacturers,'promotion'=>$promotion]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePromotionRequest  $request
-     * @param  \App\Models\Promotion  $promotion
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdatePromotionRequest $request, Promotion $promotion)
     {
-        //
+        dd($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Promotion  $promotion
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Promotion $promotion)
     {
-        //
+        $promotion->delete();
+        return redirect()->route('promotion.index');
     }
 }

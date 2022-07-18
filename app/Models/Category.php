@@ -11,6 +11,7 @@ class Category extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
     protected $guarded = [];
+    protected $perPage = 5;
     public $translatedAttributes = ['categoryName'];
 
     public function products()

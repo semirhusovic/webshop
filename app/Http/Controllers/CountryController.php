@@ -11,7 +11,7 @@ class CountryController extends Controller
 
     public function index()
     {
-        $countries = Country::all();
+        $countries = Country::query()->paginate();
         return view('dashboard.country.index',["countries" => $countries]);
     }
 

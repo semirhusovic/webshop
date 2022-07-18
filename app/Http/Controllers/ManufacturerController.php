@@ -11,7 +11,7 @@ class ManufacturerController extends Controller
 {
     public function index()
     {
-        $manufacturers = Manufacturer::all();
+        $manufacturers = Manufacturer::query()->paginate();
         return view('dashboard.manufacturer.index',["manufacturers" => $manufacturers]);
     }
 

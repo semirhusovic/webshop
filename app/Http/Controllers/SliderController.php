@@ -13,7 +13,7 @@ class SliderController extends Controller
 
     public function index()
     {
-        $sliders = Slider::all();
+        $sliders = Slider::query()->paginate();
         return view('dashboard.slider.index',['sliders' => $sliders]);
     }
 
@@ -24,6 +24,7 @@ class SliderController extends Controller
 
     public function store(StoreSliderRequest $request)
     {
+//        dd($request);
         if($request->validated()['image']){
             $file= $request->validated()['image'];
             $filename = date('YmdHi').$file->getClientOriginalName();
