@@ -30,7 +30,7 @@ class StoreProductRequest extends FormRequest
             'sr.productDescription' => ['required','string','min:3','max:500'],
             'productPrice' => ['required','numeric'],
             'productMonthsOfWarranty' => ['required','integer'],
-            'image.*' => ['required','mimes:jpeg,png,jpg'],
+            'image.*' => ['required','mimes:jpeg,png,jpg,webp'],
             'category.*' => ['required'],
             'country_id' => ['required'],
             'manufacturer_id' => ['required'],

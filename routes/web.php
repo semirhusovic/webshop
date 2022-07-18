@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
@@ -42,6 +43,8 @@ Route::resource('/dashboard/product',ProductController::class);
 Route::resource('/dashboard/country', CountryController::class);
 Route::resource('/dashboard/manufacturer', ManufacturerController::class);
 Route::resource('/dashboard/category', CategoryController::class);
+Route::resource('/dashboard/discount', DiscountController::class);
+Route::post('/dashboard/promotion/remove-product', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
 Route::resource('/dashboard/promotion', PromotionController::class);
 
 

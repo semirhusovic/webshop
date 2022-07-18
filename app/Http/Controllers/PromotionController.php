@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Discount;
 use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Http\Requests\StorePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
+use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
@@ -23,7 +25,13 @@ class PromotionController extends Controller
         $categories = Category::all();
         $products = Product::all();
         $manufacturers = Manufacturer::all();
-        return view('dashboard.promotion.create',['categories'=>$categories,'products'=>$products,'manufacturers'=>$manufacturers]);
+        $discounts = Discount::all();
+        return view('dashboard.promotion.create',
+            ['categories'=>$categories,
+                'products'=>$products,
+                'manufacturers'=>$manufacturers,
+                'discounts' => $discounts
+            ]);
     }
 
     public function store(StorePromotionRequest $request)
@@ -53,12 +61,16 @@ class PromotionController extends Controller
             ->get();
 //        dump($filteredProducts);
         $promotion->products()->attach($filteredProducts);
+        if($request->has('discount')) {
+        $promotion->discounts()->attach($request->discount);
+        }
+        return redirect()->route('promotion.index');
     }
 
 
     public function show(Promotion $promotion)
     {
-        //
+        return view('dashboard.promotion.show',['promotion' => $promotion]);
     }
 
     public function edit(Promotion $promotion)
@@ -66,7 +78,15 @@ class PromotionController extends Controller
         $categories = Category::all();
         $products = Product::all();
         $manufacturers = Manufacturer::all();
-        return view('dashboard.promotion.edit',['categories'=>$categories,'products'=>$products,'manufacturers'=>$manufacturers,'promotion'=>$promotion]);
+        $discounts = Discount::all();
+        return view('dashboard.promotion.edit',
+            [
+                'categories'=>$categories,
+                'products'=>$products,
+                'manufacturers'=>$manufacturers,
+                'promotion'=>$promotion,
+                'discounts' => $discounts
+            ]);
     }
 
 
@@ -80,5 +100,11 @@ class PromotionController extends Controller
     {
         $promotion->delete();
         return redirect()->route('promotion.index');
+    }
+
+    public function removeProductFromPromotion(Request $request) {
+        $promotion = Promotion::findOrFail($request->promotion);
+        $promotion->products()->detach($request->product);
+        return redirect()->back();
     }
 }

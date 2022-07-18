@@ -18,6 +18,10 @@ class Promotion extends Model  implements TranslatableContract
     {
         return $this->belongsToMany(Product::class);
     }
+    public function discounts()
+    {
+        return $this->morphToMany('App\Models\Discount', 'discountable');
+    }
 
 }
 

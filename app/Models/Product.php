@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Support\Facades\Log;
 
 class Product extends Model implements TranslatableContract
 {
@@ -41,6 +42,46 @@ class Product extends Model implements TranslatableContract
 
     public function promotions()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Promotion::class);
+    }
+
+    public function discounts(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphToMany('App\Models\Discount', 'discountable');
+    }
+//    public function allDiscounts()
+//    {
+//        return $this->discounts
+//            ->merge($this->promotions->first()->discounts)
+//            ->unique();
+//    }
+
+    public function allDiscounts()
+    {
+        $promos = $this->promotions;
+        $data = $this->discounts;
+        foreach ($promos as $promo) {
+            $data = $data
+                ->merge($promo->discounts)
+                ->unique();
+        }
+        return $data;
+    }
+
+
+
+public function getTotalDiscountAttribute()
+{
+    return $this->allDiscounts()
+        ->reject
+        ->expired()
+        ->map
+        ->apply($this)
+        ->sum();
+}
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->productPrice - $this->total_discount;
     }
 }

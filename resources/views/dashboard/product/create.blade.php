@@ -164,7 +164,8 @@
             </form>
             <script>
                 new TomSelect("#select-category", {
-                    maxItems: 3
+                    plugins: ['remove_button'],
+                    create: true,
                 });
             </script>
         </div>
