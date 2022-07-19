@@ -46,7 +46,7 @@
                         <a href="/"
                            class="rounded bg-gray-100 border border-gray-200 block relative p-1 hover:border-blue-300">
                             <img src="/public/img/{{$product->images->first()->fileName}}"
-                                 class="mx-auto mix-blend-multiply w-auto" height="240" alt="Product title here">
+                                 class="mx-auto mix-blend-multiply w-auto max-h-64" alt="{{$product->productName}}">
                         </a>
                         <div class="pt-3">
                             <a class="float-right px-3 py-2 text-gray-400 border border-gray-300 rounded-md hover:border-teal-400 hover:text-teal-600"

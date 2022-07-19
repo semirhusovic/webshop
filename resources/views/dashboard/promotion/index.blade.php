@@ -31,17 +31,15 @@
                         <td class="px-4 py-3 text-sm">
                             <a href="{{route('promotion.show',$promotion->id)}}"> {{$promotion->promotionName}}</a>
                         </td>
-{{--                        <td class="px-4 py-3 text-xs">--}}
-{{--                        <span class="px-2 py-1 font-semibold leading-tight {{ $slide->isActive ? 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100' : 'text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100' }} rounded-full">--}}
-{{--                          {{$slide->isActive ? 'Active' : 'Inactive'}}--}}
-{{--                        </span>--}}
-{{--                        </td>--}}
+
                         <td class="px-4 py-3 text-sm">
                             {{$promotion->products->count()}}
                         </td>
+
                         <td class="px-4 py-3 text-sm">
                             {{\Carbon\Carbon::parse($promotion->created_at)->format('d-m-Y')}}
                         </td>
+
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
 {{--                                <a href="{{route('promotion.edit',$promotion->id)}}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">--}}
