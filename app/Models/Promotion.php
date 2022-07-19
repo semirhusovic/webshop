@@ -22,6 +22,5 @@ class Promotion extends Model  implements TranslatableContract
     {
         return $this->morphToMany('App\Models\Discount', 'discountable');
     }
-
 }
 

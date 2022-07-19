@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->string('value');
-            $table->date('expired_at');
+            $table->datetime('expired_at');
             $table->timestamps();
         });
     }

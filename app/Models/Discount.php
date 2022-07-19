@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Discount extends Model
 {
@@ -27,7 +28,8 @@ class Discount extends Model
     public function expired()
     {
         // I assume that expired_at is also a Carbon instance.
-        return Carbon::parse($this->expired_at)->isPast();
+        log::warning('---------'.Carbon::now());
+        return Carbon::parse($this->expired_at) < Carbon::now();
     }
 
     /**

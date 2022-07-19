@@ -1,7 +1,7 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit slide: {{$manufacturer->manufacturerName}}
+            Edit manufacturer: {{$manufacturer->manufacturerName}}
         </h2>
 
 

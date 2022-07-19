@@ -27,14 +27,14 @@
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                             <option></option>
                             <option value="percentage" {{ $discount->type === 'percentage' ? 'selected' : ''}}>Percentage</option>
-                            <option value="percentage" {{ $discount->type === 'numeric' ? 'selected' : ''}}>Numeric</option>
+                            <option value="numeric" {{ $discount->type === 'numeric' ? 'selected' : ''}}>Numeric</option>
                         </select>
                     </label>
                 </div>
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Valid until</span>
-                    <input type="date" name="expired_at" value="{{$discount->expired_at}}"
+                    <input type="datetime-local" name="expired_at" value="{{$discount->expired_at}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                 </label>
 

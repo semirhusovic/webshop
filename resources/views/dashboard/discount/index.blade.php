@@ -34,7 +34,7 @@
                             {{$discount->value }}{{$discount->type === 'percentage' ? '%' : '$' }}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{\Carbon\Carbon::parse($discount->expired_at)->format('d-m-Y')}}
+                            {{\Carbon\Carbon::parse($discount->expired_at)->format('d-m-Y H:i:s')}}
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">

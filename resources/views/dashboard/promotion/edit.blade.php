@@ -74,7 +74,7 @@
                             <option></option>
                             @foreach($manufacturers as $manufacturer)
                                 <option
-                                    value="{{$manufacturer->id}}" {{ old('manufacturer_id' == $manufacturer->id ? 'selected' : '')}}>{{$manufacturer->manufacturerName}}</option>
+                                    value="{{$manufacturer->id}}" {{ $promotion->manufacturer == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturerName}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -83,7 +83,7 @@
 
                 <!-- Price from -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product price</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product price min</span>
                     <input name="price_from"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12">
@@ -92,7 +92,7 @@
 
                 <!-- Price to -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product price</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product price max</span>
                     <input name="price_to"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12">

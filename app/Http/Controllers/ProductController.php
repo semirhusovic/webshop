@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Discount;
 use App\Models\Image;
 use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -25,13 +27,23 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $countries = Country::all();
         $categories = Category::all();
-        return view('dashboard.product.create',['manufacturers' => $manufacturers,'countries' => $countries,'categories' => $categories]);
+        $discounts = Discount::all();
+        return view('dashboard.product.create',
+            [
+                'manufacturers' => $manufacturers,
+                'countries' => $countries,
+                'categories' => $categories,
+                'discounts' => $discounts
+            ]);
     }
 
     public function store(StoreProductRequest $request)
     {
-        $product = Product::query()->create($request->except('image','category'));
+        $product = Product::query()->create($request->except('image','category','discount'));
         $product->categories()->attach($request->category);
+        if($request->has('discount')) {
+        $product->discounts()->attach($request->discount);
+        }
         if($request->file('image')){
             foreach ($request->file('image') as $f) {
                 $file= $f;
@@ -59,19 +71,21 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $countries = Country::all();
         $categories = Category::all();
+        $discounts = Discount::all();
         return view('dashboard.product.edit',[
             'product' => $product,
             'manufacturers' => $manufacturers,
             'countries' => $countries,
-            'categories' => $categories
+            'categories' => $categories,
+            'discounts' => $discounts
         ]);
     }
 
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-//        dd($request);
         $product->categories()->detach();
+        $product->discounts()->detach($request->discount);
         if($request->file('image')){
             // Brisanje fajla
             foreach($product->images as $img) {
@@ -93,8 +107,11 @@ class ProductController extends Controller
                 }
             }
 
-        $product->updateOrFail($request->except('image','category'));
+        $product->updateOrFail($request->except('image','category','discount'));
         $product->categories()->attach($request->category);
+        if($request->has('discount')) {
+            $product->discounts()->attach($request->discount);
+        }
         return redirect()->route('product.index');
     }
 

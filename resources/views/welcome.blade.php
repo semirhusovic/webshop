@@ -53,8 +53,8 @@
                                href="/">
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
-                            @if($product->productDiscountPrice)
-                                <p class="font-semibold">{{$product->productDiscountPrice}}$
+                            @if($product->total_price < $product->productPrice)
+                                <p class="font-semibold">{{$product->total_price}}$
                                     <del class="text-sm text-gray-500 line-through">{{$product->productPrice}}$</del>
                                 </p>
                             @else

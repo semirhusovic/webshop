@@ -39,13 +39,23 @@
                 <!-- End price -->
 
                 <!-- Discount price -->
-                <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product discount price</span>
-                    <input name="productDiscountPrice"
-                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="7"
-                           value="{{$product->productDiscountPrice}}">
-                </label>
+                <div class="mb-4">
+                    <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  Apply discount
+                </span>
+                        <select name="discount"
+                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <option></option>
+                            @foreach($discounts as $discount)
+                                <option
+                                    value="{{$discount->id}}"
+                                    @if($product->discounts->first() && $product->discounts->first()->id === $discount->id) selected @endif
+                                >{{$discount->value.' - '.$discount->type.' - Valid until - '.$discount->expired_at}}</option>
+                            @endforeach
+                        </select>
+                    </label>
+                </div>
                 <!-- End discount price -->
 
                 <!-- Description -->
