@@ -16,10 +16,16 @@ class Product extends Model implements TranslatableContract
     public $timestamps = false;
     protected $perPage = 5;
     public $translatedAttributes = ['productName', 'productDescription'];
+    protected $appends = array('total_price');
 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class);
     }
 
     public function images(){

@@ -23,7 +23,7 @@ class ManufacturerController extends Controller
     public function store(StoreManufacturerRequest $request)
     {
         $newCountry = Manufacturer::query()->create($request->all());
-        return redirect()->route('manufacturer.index');
+        return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer created successfully!');
     }
     public function show(Manufacturer $manufacturer)
     {
@@ -38,13 +38,13 @@ class ManufacturerController extends Controller
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
         $manufacturer->updateOrFail($request->all());
-        return redirect()->route('manufacturer.index');
+        return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer updated successfully!');
 
     }
 
     public function destroy(Manufacturer $manufacturer)
     {
         $manufacturer->delete();
-        return redirect()->route('manufacturer.index');
+        return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer deleted successfully!');
     }
 }

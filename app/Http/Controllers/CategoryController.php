@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $newCategory = Category::query()->create($request->all());
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->withToastSuccess('Category created successfully!');
     }
 
 
@@ -41,12 +41,12 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->updateOrFail($request->all());
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->withToastSuccess('Category updated successfully!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->withToastSuccess('Category deleted successfully!');
     }
 }

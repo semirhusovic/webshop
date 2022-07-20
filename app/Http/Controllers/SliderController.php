@@ -40,7 +40,7 @@ class SliderController extends Controller
             'fileName' => $filename
         ]);
 
-        return redirect()->route('slider.index');
+        return redirect()->route('slider.index')->withToastSuccess('Slide created successfully!');
     }
 
     public function edit(Slider $slider)
@@ -67,7 +67,7 @@ class SliderController extends Controller
             ]);
         }
         $slider->updateOrFail($request->except('image'));
-        return redirect()->route('slider.index');
+        return redirect()->route('slider.index')->withToastSuccess('Slide updated successfully!');
     }
 
     public function destroy(Slider $slider)
@@ -79,6 +79,6 @@ class SliderController extends Controller
         // Brisanje iz baze
         Image::destroy($slider->image->id);
         $slider->delete();
-        return redirect()->route('slider.index');
+        return redirect()->route('slider.index')->withToastSuccess('Slide deleted successfully!');
     }
 }

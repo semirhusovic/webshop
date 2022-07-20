@@ -12,13 +12,26 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::query()->paginate();
-        return view('dashboard.product.index',['products' => $products]);
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $products = Product::query()
+                ->join('product_translations','products.id','=','product_id')
+                ->where('productName', 'like', '%'.$filter.'%')
+                ->where('locale','=',session('language'))
+                ->paginate();
+        } else {
+            $products = Product::query()->paginate();
+        }
+
+//        $products = Product::query()->paginate();
+        return view('dashboard.product.index',['products' => $products,'filter' => $filter]);
     }
 
 
@@ -56,7 +69,7 @@ class ProductController extends Controller
                 ]);
             }
         }
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->withToastSuccess('Product created successfully!');
     }
 
 
@@ -112,13 +125,13 @@ class ProductController extends Controller
         if($request->has('discount')) {
             $product->discounts()->attach($request->discount);
         }
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->withToastSuccess('Product updated successfully!');
     }
 
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->withToastSuccess('Product deleted successfully!');
     }
 }

@@ -23,7 +23,7 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
         $discount = Discount::query()->create($request->all());
-        return redirect()->route('discount.index');
+        return redirect()->route('discount.index')->withToastSuccess('Discount created successfully!');
     }
 
     /**
@@ -45,13 +45,13 @@ class DiscountController extends Controller
     public function update(Request $request, Discount $discount)
     {
         $discount->updateOrFail($request->all());
-        return redirect()->route('discount.index');
+        return redirect()->route('discount.index')->withToastSuccess('Discount updated successfully!');
     }
 
 
     public function destroy(Discount $discount)
     {
         $discount->delete();
-        return redirect()->route('discount.index');
+        return redirect()->route('discount.index')->withToastSuccess('Discount deleted successfully!');
     }
 }

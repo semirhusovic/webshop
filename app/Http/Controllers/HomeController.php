@@ -40,4 +40,7 @@ class HomeController extends Controller
         return view('categories.show', compact('category', 'products'));
     }
 
+    public function showCart(){
+        return view('frontend.cart');
+    }
 }

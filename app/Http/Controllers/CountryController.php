@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CountryController extends Controller
 {
@@ -23,7 +25,7 @@ class CountryController extends Controller
     public function store(StoreCountryRequest $request)
     {
         $newCountry = Country::query()->create($request->all());
-        return redirect()->route('country.index');
+        return redirect()->route('country.index')->withToastSuccess('Country created successfully!');
     }
 
     /**
@@ -45,11 +47,12 @@ class CountryController extends Controller
     public function update(UpdateCountryRequest $request, Country $country)
     {
         $country->updateOrFail($request->all());
+        return redirect()->route('country.index')->withToastSuccess('Country updated successfully!');
     }
 
     public function destroy(Country $country)
     {
         $country->delete();
-        return redirect()->route('country.index');
+        return redirect()->route('country.index')->withToastSuccess('Country deleted successfully!');
     }
 }

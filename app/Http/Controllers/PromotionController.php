@@ -64,7 +64,7 @@ class PromotionController extends Controller
         if($request->has('discount')) {
         $promotion->discounts()->attach($request->discount);
         }
-        return redirect()->route('promotion.index');
+        return redirect()->route('promotion.index')->withToastSuccess('Promotion created successfully!');
     }
 
 
@@ -99,12 +99,12 @@ class PromotionController extends Controller
     public function destroy(Promotion $promotion)
     {
         $promotion->delete();
-        return redirect()->route('promotion.index');
+        return redirect()->route('promotion.index')->withToastSuccess('Promotion deleted successfully!');
     }
 
     public function removeProductFromPromotion(Request $request) {
         $promotion = Promotion::findOrFail($request->promotion);
         $promotion->products()->detach($request->product);
-        return redirect()->back();
+        return redirect()->back()->withToastSuccess('Product deleted from promotion successfully!');
     }
 }
