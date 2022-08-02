@@ -20,23 +20,24 @@ class StoreSliderRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'en.title' => ['required','string','min:5','max:40'],
-            'sr.title' => ['required','string','min:5','max:40'],
+        $rules =  [
             'link' => ['required','string','min:5','max:40'],
             'duration' => ['required','integer','min:1','max:15'],
             'isActive' => ['required'],
             'order' => ['required','integer','unique:sliders','min:1','max:5'],
             'image' => ['required','mimes:jpeg,png,jpg'],
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.title'] = 'required|string|max:40|min:5';
+        }
 
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            'sr.title.required' => 'The title in Serbian is required.',
-            'en.title.required' => 'The title in English is required.',
+
         ];
     }
 }

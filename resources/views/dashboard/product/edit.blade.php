@@ -20,8 +20,8 @@
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
-                    <span class="text-red-600">[SR]</span>
-                    <input name="sr[productName]"
+                    <span class="text-red-600">[ME]</span>
+                    <input name="me[productName]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1"
                            value="{{$product->translations[1]->productName}}">
@@ -68,8 +68,8 @@
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
-                    <span class="text-red-600">[SR]</span>
-                    <textarea name="sr[productDescription]" rows="6"
+                    <span class="text-red-600">[ME]</span>
+                    <textarea name="me[productDescription]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                               placeholder="Description of your product">{{$product->translations[1]->productDescription}}</textarea>
                 </label>

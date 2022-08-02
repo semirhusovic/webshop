@@ -5,16 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
+use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
-
-    public function index()
+    public function index(Request $request)
     {
-        $countries = Country::query()->paginate();
-        return view('dashboard.country.index',["countries" => $countries]);
+        $language = session('language') ? session('language') : 'en';
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $countries = Country::query()
+                ->whereHas('translations', function ($query) use ($filter, $language) {
+                    $query->where('locale', '=', $language);
+                    $query->where('countryName', 'like', '%'.$filter.'%');
+                })
+                ->paginate();
+        } else {
+            $countries = Country::query()->paginate();
+        }
+
+
+
+        return view('dashboard.country.index', ["countries" => $countries,'filter' => $filter]);
     }
 
     public function create()
@@ -24,7 +38,7 @@ class CountryController extends Controller
 
     public function store(StoreCountryRequest $request)
     {
-        $newCountry = Country::query()->create($request->all());
+        Country::query()->create($request->all());
         return redirect()->route('country.index')->withToastSuccess('Country created successfully!');
     }
 
@@ -41,7 +55,7 @@ class CountryController extends Controller
 
     public function edit(Country $country)
     {
-        return view('dashboard.country.edit',['country' => $country]);
+        return view('dashboard.country.edit', ['country' => $country]);
     }
 
     public function update(UpdateCountryRequest $request, Country $country)

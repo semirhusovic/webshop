@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::query()->paginate();
-        return view('dashboard.category.index', ["categories" => $categories]);
+        $language = session('language') ? session('language') : 'en';
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $categories = Category::query()
+                ->whereHas('translations', function ($query) use ($filter, $language) {
+                    $query->where('locale', '=', $language);
+                    $query->where('categoryName', 'like', '%'.$filter.'%');
+                })
+                ->paginate();
+        } else {
+            $categories = Category::query()->paginate();
+        }
+        return view('dashboard.category.index', ["categories" => $categories,"filter" => $filter]);
     }
 
     public function create()

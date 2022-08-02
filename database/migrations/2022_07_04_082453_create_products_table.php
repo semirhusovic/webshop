@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('productManufacturingDate');
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('manufacturer_id')->constrained('manufacturers');
+            $table->timestamps();
         });
     }
 

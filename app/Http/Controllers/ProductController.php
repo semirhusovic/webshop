@@ -19,15 +19,27 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $language = session('language') ? session('language') : 'en';
         $filter = $request->filter;
         if (!empty($filter)) {
             $products = Product::query()
-                ->join('product_translations','products.id','=','product_id')
-                ->where('productName', 'like', '%'.$filter.'%')
-                ->where('locale','=',session('language'))
+                ->with('manufacturer')
+                ->whereHas('translations', function ($query) use ($filter,$language) {
+                        $query->where('locale','=', $language);
+                        $query->where('productName', 'like', '%'.$filter.'%');
+                })
+                ->orderByDesc('created_at')
                 ->paginate();
         } else {
-            $products = Product::query()->paginate();
+            $products = Product::query()
+                ->with('manufacturer')
+                ->with('promotions')
+                ->with('categories')
+                ->with('discounts')
+                ->with('images')
+                ->with('translations')
+                ->orderByDesc('created_at')
+                ->paginate();
         }
 
 //        $products = Product::query()->paginate();

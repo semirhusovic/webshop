@@ -14,7 +14,7 @@
                 <!-- title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
-                    <input name="en[productName]"
+                    <input name="en[productName]" value="{{old('en[productName]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1">
                 </label>
@@ -22,8 +22,8 @@
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
-                    <span class="text-red-600">[SR]</span>
-                    <input name="sr[productName]"
+                    <span class="text-red-600">[ME]</span>
+                    <input name="me[productName]" value="{{old('me[productName]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1">
                 </label>
@@ -32,7 +32,7 @@
                 <!-- Price -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product price</span>
-                    <input name="productPrice"
+                    <input name="productPrice" value="{{old('productPrice')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12">
                 </label>
@@ -59,22 +59,22 @@
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
                     <textarea name="en[productDescription]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product"></textarea>
+                              placeholder="Description of your product">{{old('en[productDescription]')}}</textarea>
                 </label>
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
-                    <span class="text-red-600">[SR]</span>
-                    <textarea name="sr[productDescription]" rows="6"
+                    <span class="text-red-600">[ME]</span>
+                    <textarea name="me[productDescription]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product"></textarea>
+                              placeholder="Description of your product">{{old('me[productDescription]')}}</textarea>
                 </label>
                 <!-- End discount price -->
 
                 <!-- Slide link -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Manufacturing date</span>
-                    <input type="date" name="productManufacturingDate"
+                    <input type="date" name="productManufacturingDate" value="{{old('productManufacturingDate')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             >
                 </label>
@@ -84,7 +84,7 @@
                 <!-- Slide link -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Months of warrancy</span>
-                    <input name="productMonthsOfWarranty"
+                    <input name="productMonthsOfWarranty" value="{{old('productMonthsOfWarranty')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="24">
                 </label>
@@ -157,7 +157,7 @@
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
                                 800x400px)</p>
                         </div>
-                        <input name=image[] id="dropzone-file" type="file" multiple="multiple" class="hidden"/>
+                        <input name=image[] id="dropzone-file" type="file" multiple="multiple" class="hidden" required/>
                     </label>
                 </div>
                 <!-- End drop upload -->

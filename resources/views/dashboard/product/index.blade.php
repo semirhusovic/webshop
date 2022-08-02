@@ -14,7 +14,7 @@
         </div>
         <div class="mb-8">
 
-            <form class="form-inline" method="GET">
+            <form method="GET">
                 <div class="flex mb-2">
                     <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
                         <div class="absolute inset-y-0 flex items-center pl-2">
@@ -25,8 +25,7 @@
                         <input value="{{$filter}}" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Search for products" aria-label="Search" name="filter">
                     </div>
                 <button type="submit" class="md:inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    <svg class="w-4 h-4 inline-block" stroke="currentColor" stroke-width="2px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#ffffff" d="M1 0h22l-9 14.094v9.906l-4-2v-7.906z"/></svg>
-                    Filter</button>
+                    Search</button>
                 </div>
             </form>
 
@@ -100,5 +99,6 @@
                 </div>
                 {{ $products->links('vendor.pagination.custom-pagination') }}
         </div>
+    </div>
     </div>
 </x-dashboard>

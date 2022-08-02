@@ -56,7 +56,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return $product;
+        $id = $product->id;
+        return Product::with('images')->findOrFail($id);
     }
 
 

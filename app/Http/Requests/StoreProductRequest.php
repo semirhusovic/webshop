@@ -23,18 +23,22 @@ class StoreProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'en.productName' => ['required','string','min:3','max:40'],
-            'sr.productName' => ['required','string','min:3','max:40'],
-            'en.productDescription' => ['required','string','min:3','max:500'],
-            'sr.productDescription' => ['required','string','min:3','max:500'],
+        $rules = [
             'productPrice' => ['required','numeric'],
             'productMonthsOfWarranty' => ['required','integer'],
+            'image' => ['required'],
             'image.*' => ['required','mimes:jpeg,png,jpg,webp'],
             'category.*' => ['required'],
+            'category' => ['required'],
             'country_id' => ['required'],
             'manufacturer_id' => ['required'],
             'productManufacturingDate' => ['required','date'],
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.productName'] = 'required|string|max:40|min:3';
+            $rules[$locale . '.productDescription'] = 'required|string|max:500|min:3';
+        }
+
+        return $rules;
     }
 }

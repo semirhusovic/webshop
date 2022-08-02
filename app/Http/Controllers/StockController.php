@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Stock;
 use App\Http\Requests\StoreStockRequest;
 use App\Http\Requests\UpdateStockRequest;
+use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $stocks = Stock::query()
+                ->whereHas('product.translations', function ($query) use ($filter) {
+                    $query->where('productName', 'like', '%'.$filter.'%');
+                })
+                ->orderByDesc('created_at')
+                ->paginate();
+        } else {
+            $stocks = Stock::query()
+                ->orderByDesc('created_at')
+                ->paginate();
+        }
+
+        return view('dashboard.stock.index', ['stocks' => $stocks,'filter' => $filter]);
     }
 
     /**

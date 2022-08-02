@@ -23,8 +23,12 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+//
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.categoryName'] = 'required|string|max:40|min:3';
+        }
+        return $rules;
     }
 }

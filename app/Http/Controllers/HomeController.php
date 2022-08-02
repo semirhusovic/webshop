@@ -15,9 +15,9 @@ class HomeController extends Controller
             ->with('subcategories')
             ->get();
 
-        $sliders = Slider::query()->where('isActive','=','1')->orderBy('order')->get();
+        $sliders = Slider::query()->where('isActive', '=', '1')->orderBy('order')->get();
         $products = Product::all();
-        return view('welcome', compact('categories','sliders','products'));
+        return view('welcome', compact('categories', 'sliders', 'products'));
     }
 
     public function show($id)
@@ -33,14 +33,15 @@ class HomeController extends Controller
             }
         }
 
-        $products = Product::whereHas('categories', function($query) use ($subcategoryIDs) {
+        $products = Product::whereHas('categories', function ($query) use ($subcategoryIDs) {
             $query->whereIn('categories.id', $subcategoryIDs);
         })->get();
 
         return view('categories.show', compact('category', 'products'));
     }
 
-    public function showCart(){
+    public function showCart()
+    {
         return view('frontend.cart');
     }
 }

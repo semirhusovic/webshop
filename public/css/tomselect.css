@@ -177,7 +177,8 @@
 .ts-dropdown,
 .ts-control,
 .ts-control input {
-    color: #303030;
+    /*color: #303030;*/
+    color: purple;
     font-family: inherit;
     font-size: 13px;
     line-height: 18px;
@@ -225,7 +226,8 @@
     margin: 0 3px 3px 0;
     padding: 2px 6px;
     background: #7E3AF2;
-    color: #131313;
+    /*color: #131313;*/
+    color: #ffffff;
     border: 0px solid #d0d0d0;
 }
 .ts-wrapper.multi .ts-control > div.active {
@@ -336,7 +338,7 @@
     color: #fbfeff;
 }
 .ts-dropdown .active.create {
-    color: #495c68;
+    color: black;
 }
 .ts-dropdown .create {
     color: rgba(48, 48, 48, 0.5);

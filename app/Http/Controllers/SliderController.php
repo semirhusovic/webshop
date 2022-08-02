@@ -10,11 +10,10 @@ use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
 {
-
     public function index()
     {
         $sliders = Slider::query()->paginate();
-        return view('dashboard.slider.index',['sliders' => $sliders]);
+        return view('dashboard.slider.index', ['sliders' => $sliders]);
     }
 
     public function create()
@@ -25,12 +24,11 @@ class SliderController extends Controller
     public function store(StoreSliderRequest $request)
     {
 //        dd($request);
-        if($request->validated()['image']){
+        if ($request->validated()['image']) {
             $file= $request->validated()['image'];
             $filename = date('YmdHi').$file->getClientOriginalName();
             $file-> move(public_path('public/img'), $filename);
         }
-        $validated = $request->validated();
 //        $created_slider = Slider::query()->create(collect($validated)->except(['image'])->toArray());
         $created_slider = Slider::query()->create($request->except(['image']));
 
@@ -45,14 +43,14 @@ class SliderController extends Controller
 
     public function edit(Slider $slider)
     {
-        return view('dashboard.slider.edit',['slider' => $slider]);
+        return view('dashboard.slider.edit', ['slider' => $slider]);
     }
 
     public function update(UpdateSliderRequest $request, Slider $slider)
     {
-        if($request->file('image')){
+        if ($request->file('image')) {
             // Brisanje fajla
-            if(File::exists('public/img/'. $slider->image->fileName)){
+            if (File::exists('public/img/'. $slider->image->fileName)) {
                 File::delete('public/img/'. $slider->image->fileName);
             }
             // Brisanje iz baze
@@ -73,7 +71,7 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
         // Brisanje fajla
-        if(File::exists('public/img/'. $slider->image->fileName)){
+        if (File::exists('public/img/'. $slider->image->fileName)) {
             File::delete('public/img/'. $slider->image->fileName);
         }
         // Brisanje iz baze

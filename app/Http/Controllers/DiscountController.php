@@ -3,15 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discount;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
+
 
 class DiscountController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $discounts = Discount::query()->paginate();
-        return view('dashboard.discount.index',['discounts' => $discounts ]);
+
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $discounts = Discount::query()
+                ->where('discountName', 'like', '%'.$filter.'%')
+                ->paginate();
+        } else {
+            $discounts = Discount::query()->paginate();
+        }
+        return view('dashboard.discount.index',['discounts' => $discounts,'filter' => $filter ]);
     }
 
 

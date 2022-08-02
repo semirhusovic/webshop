@@ -6,13 +6,22 @@ use App\Models\Country;
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreManufacturerRequest;
 use App\Http\Requests\UpdateManufacturerRequest;
+use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $manufacturers = Manufacturer::query()->paginate();
-        return view('dashboard.manufacturer.index',["manufacturers" => $manufacturers]);
+
+        $filter = $request->filter;
+        if (!empty($filter)) {
+            $manufacturers = Manufacturer::query()
+                ->where('manufacturerName', 'like', '%'.$filter.'%')
+                ->paginate();
+        } else {
+            $manufacturers = Manufacturer::query()->paginate();
+        }
+        return view('dashboard.manufacturer.index',["manufacturers" => $manufacturers,'filter' => $filter]);
     }
 
     public function create()

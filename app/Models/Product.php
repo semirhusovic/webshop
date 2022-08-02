@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\Log;
+use Kyslik\ColumnSortable\Sortable;
 
 class Product extends Model implements TranslatableContract
 {
-    use HasFactory,Translatable;
+    use HasFactory,Translatable,Sortable;
 
     protected $guarded = [];
-    public $timestamps = false;
     protected $perPage = 5;
     public $translatedAttributes = ['productName', 'productDescription'];
     protected $appends = array('total_price');
+    protected $with = ['images','categories','promotions','discounts'];
+//    public $sortable = ['productName', 'total_price','created_at','manufacturer_id'];
 
     public function categories()
     {
@@ -35,6 +37,11 @@ class Product extends Model implements TranslatableContract
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class);
     }
 
     public function manufacturer()
@@ -88,6 +95,6 @@ public function getTotalDiscountAttribute()
 
     public function getTotalPriceAttribute()
     {
-        return $this->productPrice - $this->total_discount;
+        return Number_format($this->productPrice - $this->total_discount,2);
     }
 }

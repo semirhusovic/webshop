@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/', [CategoryController::class, 'index']);
 //Route::get('/category/{category}', [CategoryController::class, 'show'])->name('categories.show');
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/cart', [HomeController::class, 'showCart'])->name('cart');
+//Route::get('/', [HomeController::class, 'index']);
+//Route::get('/cart', [HomeController::class, 'showCart'])->name('cart');
 //Route::get('/category/{id}', [HomeController::class, 'show'])->name('categories.show');
 
 
@@ -45,7 +45,9 @@ Route::resource('/dashboard/country', CountryController::class);
 Route::resource('/dashboard/manufacturer', ManufacturerController::class);
 Route::resource('/dashboard/category', CategoryController::class);
 Route::resource('/dashboard/discount', DiscountController::class);
+Route::resource('/dashboard/stock', \App\Http\Controllers\StockController::class);
 Route::post('/dashboard/promotion/remove-product', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
+Route::POST('/dashboard/promotion/filter-products', [PromotionController::class,'filterProducts']);
 Route::resource('/dashboard/promotion', PromotionController::class);
 
 
