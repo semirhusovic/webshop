@@ -17,7 +17,7 @@ class Product extends Model implements TranslatableContract
     protected $perPage = 5;
     public $translatedAttributes = ['productName', 'productDescription'];
     protected $appends = array('total_price');
-    protected $with = ['images','categories','promotions','discounts'];
+    protected $with = ['images','categories','promotions','discounts','manufacturer'];
 //    public $sortable = ['productName', 'total_price','created_at','manufacturer_id'];
 
     public function categories()
@@ -30,8 +30,9 @@ class Product extends Model implements TranslatableContract
         return $this->belongsToMany(Cart::class);
     }
 
-    public function images(){
-        return $this->morphMany('App\Models\Image','imageable');
+    public function images()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function country()
@@ -49,7 +50,8 @@ class Product extends Model implements TranslatableContract
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany(User::class);
     }
 
@@ -83,18 +85,18 @@ class Product extends Model implements TranslatableContract
 
 
 
-public function getTotalDiscountAttribute()
-{
-    return $this->allDiscounts()
+    public function getTotalDiscountAttribute()
+    {
+        return $this->allDiscounts()
         ->reject
         ->expired()
         ->map
         ->apply($this)
         ->sum();
-}
+    }
 
     public function getTotalPriceAttribute()
     {
-        return Number_format($this->productPrice - $this->total_discount,2);
+        return Number_format($this->productPrice - $this->total_discount, 2);
     }
 }

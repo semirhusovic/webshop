@@ -11,11 +11,12 @@ class Country extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
     public $timestamps = false;
+    protected $with = ['translations'];
     protected $guarded = [];
     protected $perPage = 5;
     public $translatedAttributes = ['countryName'];
 
-    public function products()
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Product::class);
     }

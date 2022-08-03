@@ -12,7 +12,6 @@ class ManufacturerController extends Controller
 {
     public function index(Request $request)
     {
-
         $filter = $request->filter;
         if (!empty($filter)) {
             $manufacturers = Manufacturer::query()
@@ -21,7 +20,7 @@ class ManufacturerController extends Controller
         } else {
             $manufacturers = Manufacturer::query()->paginate();
         }
-        return view('dashboard.manufacturer.index',["manufacturers" => $manufacturers,'filter' => $filter]);
+        return view('dashboard.manufacturer.index', ["manufacturers" => $manufacturers,'filter' => $filter]);
     }
 
     public function create()
@@ -41,14 +40,13 @@ class ManufacturerController extends Controller
 
     public function edit(Manufacturer $manufacturer)
     {
-        return view('dashboard.manufacturer.edit',['manufacturer' => $manufacturer]);
+        return view('dashboard.manufacturer.edit', ['manufacturer' => $manufacturer]);
     }
 
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
         $manufacturer->updateOrFail($request->all());
         return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer updated successfully!');
-
     }
 
     public function destroy(Manufacturer $manufacturer)

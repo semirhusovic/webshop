@@ -15,19 +15,17 @@ class PromotionController extends Controller
 {
     public function index(Request $request)
     {
-        $language = session('language') ? session('language') : 'en';
         $filter = $request->filter;
         if (!empty($filter)) {
             $promotions = Promotion::query()
-                ->whereHas('translations', function ($query) use ($filter, $language) {
-                    $query->where('locale', '=', $language);
+                ->whereHas('translations', function ($query) use ($filter) {
                     $query->where('promotionName', 'like', '%'.$filter.'%');
                 })
                 ->paginate();
         } else {
             $promotions = Promotion::query()->paginate();
         }
-        return view('dashboard.promotion.index', ['promotions'=>$promotions,'filter' => $filter]);
+        return view('dashboard.promotion.index', compact('promotions', 'filter'));
     }
 
     public function create(Request $request)
@@ -38,13 +36,10 @@ class PromotionController extends Controller
         $discounts = Discount::all();
 
 
+
         return view(
             'dashboard.promotion.create',
-            ['categories'=>$categories,
-                'products'=>$products,
-                'manufacturers'=>$manufacturers,
-                'discounts' => $discounts,
-            ]
+            compact('categories', 'products', 'manufacturers', 'discounts')
         );
     }
 
@@ -94,13 +89,7 @@ class PromotionController extends Controller
         $discounts = Discount::all();
         return view(
             'dashboard.promotion.edit',
-            [
-                'categories'=>$categories,
-                'products'=>$products,
-                'manufacturers'=>$manufacturers,
-                'promotion'=>$promotion,
-                'discounts' => $discounts
-            ]
+            compact('categories', 'products', 'manufacturers', 'discounts')
         );
     }
 
@@ -126,7 +115,7 @@ class PromotionController extends Controller
 
     public function filterProducts(Request $request)
     {
-            $filteredProducts = Product::query()->with('images')->with('manufacturer')
+        $filteredProducts = Product::query()->with('images')->with('manufacturer')
                 ->join('category_product', 'products.id', '=', 'product_id')
                 ->join('categories', 'categories.id', '=', 'category_product.category_id')
                 ->join('countries', 'countries.id', '=', 'products.country_id')

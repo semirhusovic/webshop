@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Promotion extends Model  implements TranslatableContract
 {
     use HasFactory,Translatable;
+    protected $with = ['translations'];
     protected $guarded = [];
     protected $perPage = 5;
     public $translatedAttributes = ['promotionName'];

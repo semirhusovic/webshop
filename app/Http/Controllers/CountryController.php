@@ -13,12 +13,10 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $language = session('language') ? session('language') : 'en';
         $filter = $request->filter;
         if (!empty($filter)) {
             $countries = Country::query()
-                ->whereHas('translations', function ($query) use ($filter, $language) {
-                    $query->where('locale', '=', $language);
+                ->whereHas('translations', function ($query) use ($filter) {
                     $query->where('countryName', 'like', '%'.$filter.'%');
                 })
                 ->paginate();

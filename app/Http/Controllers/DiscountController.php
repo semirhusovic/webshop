@@ -6,13 +6,10 @@ use App\Models\Discount;
 use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
-
 class DiscountController extends Controller
 {
-
     public function index(Request $request)
     {
-
         $filter = $request->filter;
         if (!empty($filter)) {
             $discounts = Discount::query()
@@ -21,7 +18,7 @@ class DiscountController extends Controller
         } else {
             $discounts = Discount::query()->paginate();
         }
-        return view('dashboard.discount.index',['discounts' => $discounts,'filter' => $filter ]);
+        return view('dashboard.discount.index', ['discounts' => $discounts,'filter' => $filter ]);
     }
 
 
@@ -49,7 +46,7 @@ class DiscountController extends Controller
 
     public function edit(Discount $discount)
     {
-        return view('dashboard.discount.edit',['discount' => $discount]);
+        return view('dashboard.discount.edit', ['discount' => $discount]);
     }
 
     public function update(Request $request, Discount $discount)

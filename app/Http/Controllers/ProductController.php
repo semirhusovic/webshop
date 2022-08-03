@@ -10,40 +10,29 @@ use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $language = session('language') ? session('language') : 'en';
         $filter = $request->filter;
         if (!empty($filter)) {
             $products = Product::query()
                 ->with('manufacturer')
-                ->whereHas('translations', function ($query) use ($filter,$language) {
-                        $query->where('locale','=', $language);
-                        $query->where('productName', 'like', '%'.$filter.'%');
+                ->whereHas('translations', function ($query) use ($filter) {
+                    $query->where('productName', 'like', '%'.$filter.'%');
                 })
                 ->orderByDesc('created_at')
                 ->paginate();
         } else {
             $products = Product::query()
-                ->with('manufacturer')
-                ->with('promotions')
-                ->with('categories')
-                ->with('discounts')
-                ->with('images')
                 ->with('translations')
                 ->orderByDesc('created_at')
                 ->paginate();
         }
-
-//        $products = Product::query()->paginate();
-        return view('dashboard.product.index',['products' => $products,'filter' => $filter]);
+        return view('dashboard.product.index', ['products' => $products,'filter' => $filter]);
     }
 
 
@@ -53,23 +42,20 @@ class ProductController extends Controller
         $countries = Country::all();
         $categories = Category::all();
         $discounts = Discount::all();
-        return view('dashboard.product.create',
-            [
-                'manufacturers' => $manufacturers,
-                'countries' => $countries,
-                'categories' => $categories,
-                'discounts' => $discounts
-            ]);
+        return view(
+            'dashboard.product.create',
+            compact('manufacturers', 'countries', 'categories', 'discounts')
+        );
     }
 
     public function store(StoreProductRequest $request)
     {
-        $product = Product::query()->create($request->except('image','category','discount'));
+        $product = Product::query()->create($request->except('image', 'category', 'discount'));
         $product->categories()->attach($request->category);
-        if($request->has('discount')) {
-        $product->discounts()->attach($request->discount);
+        if ($request->has('discount')) {
+            $product->discounts()->attach($request->discount);
         }
-        if($request->file('image')){
+        if ($request->file('image')) {
             foreach ($request->file('image') as $f) {
                 $file= $f;
                 $filename = date('YmdHi').$f->getClientOriginalName();
@@ -97,13 +83,7 @@ class ProductController extends Controller
         $countries = Country::all();
         $categories = Category::all();
         $discounts = Discount::all();
-        return view('dashboard.product.edit',[
-            'product' => $product,
-            'manufacturers' => $manufacturers,
-            'countries' => $countries,
-            'categories' => $categories,
-            'discounts' => $discounts
-        ]);
+        return view('dashboard.product.edit', compact('product', 'manufacturers', 'countries', 'categories', 'discounts'));
     }
 
 
@@ -111,30 +91,30 @@ class ProductController extends Controller
     {
         $product->categories()->detach();
         $product->discounts()->detach($request->discount);
-        if($request->file('image')){
+        if ($request->file('image')) {
             // Brisanje fajla
-            foreach($product->images as $img) {
-                if(File::exists('public/img/'. $img->fileName)){
+            foreach ($product->images as $img) {
+                if (File::exists('public/img/'. $img->fileName)) {
                     File::delete('public/img/'. $img->fileName);
                 }
                 // Brisanje iz baze
                 Image::destroy($img->id);
             }
-                foreach ($request->file('image') as $f) {
-                    $file= $f;
-                    $filename = date('YmdHi').$f->getClientOriginalName();
-                    $file-> move(public_path('public/img'), $filename);
-                    $image = Image::query()->create([
+            foreach ($request->file('image') as $f) {
+                $file= $f;
+                $filename = date('YmdHi').$f->getClientOriginalName();
+                $file-> move(public_path('public/img'), $filename);
+                $image = Image::query()->create([
                         'imageable_id' => $product->id,
                         'imageable_type' => 'App\Models\Product',
                         'fileName' => $filename
                     ]);
-                }
             }
+        }
 
-        $product->updateOrFail($request->except('image','category','discount'));
+        $product->updateOrFail($request->except('image', 'category', 'discount'));
         $product->categories()->attach($request->category);
-        if($request->has('discount')) {
+        if ($request->has('discount')) {
             $product->discounts()->attach($request->discount);
         }
         return redirect()->route('product.index')->withToastSuccess('Product updated successfully!');

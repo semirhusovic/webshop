@@ -12,32 +12,6 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 
     public function addToCart(Request $request)
     {
@@ -71,13 +45,12 @@ class CartController extends Controller
                 'quantity' => $quantity - $request->quantity,
             ]);
         }
-        //TODO: zamijeniti updateExistingPivot sa sync
 
         if ($quantity==1) {
             $cart->products()->detach($request->product_id);
         }
 
-        return response(['message' => 'Product removed to cart!'
+        return response(['message' => 'Product removed from cart!'
         ], 201);
     }
 

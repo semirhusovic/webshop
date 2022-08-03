@@ -10,18 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
+    protected $with = ['translations'];
     protected $guarded = [];
     protected $perPage = 5;
     public $translatedAttributes = ['categoryName'];
 
-    public function products()
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Product::class);
     }
 
-    public function subcategories()
+    public function subcategories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Category::class)->with(['subcategories' => function($query) {
+        return $this->hasMany(Category::class)->with(['subcategories' => function ($query) {
             $query->withCount('products');
         }]);
     }

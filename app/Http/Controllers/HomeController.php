@@ -19,7 +19,7 @@ class HomeController extends Controller
         $orders = Order::query()->with('user')->paginate();
         $money = Order::query()->sum('totalAmount');
 
-        return view('dashboard.index', compact('users', 'products', 'orders', 'money','orderNumber'));
+        return view('dashboard.index', compact('users', 'products', 'orders', 'money', 'orderNumber'));
     }
 
 
