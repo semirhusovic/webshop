@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-//            $table->string('productName');
-            $table->string('productPrice');
-            $table->string('productDiscountPrice')->nullable();
-//            $table->text('productDescription');
-            $table->integer('productMonthsOfWarranty');
-            $table->date('productManufacturingDate');
+            $table->decimal('product_price');
+            $table->string('product_discount_price')->nullable();
+            $table->integer('product_months_of_warranty');
+            $table->date('product_manufacturing_date');
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('manufacturer_id')->constrained('manufacturers');
             $table->timestamps();

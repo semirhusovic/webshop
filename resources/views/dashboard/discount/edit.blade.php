@@ -6,9 +6,20 @@
 
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
             <form action="{{route('discount.update',$discount->id)}}" method="POST">
                 @csrf
                 @method('PUT')
+
+                <!-- Slide title -->
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Discount name</span>
+                    <input value="{{$discount->discount_name}}" name="discount_name"
+                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                           placeholder="Type name here">
+                </label>
+                <!-- End slide title -->
+
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Discount value</span>

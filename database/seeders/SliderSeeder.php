@@ -19,7 +19,7 @@ class SliderSeeder extends Seeder
         Slider::query()->create([
             'link' => 'https://google.com',
             'isActive' => 1,
-            'order' => 1,
+            'position' => 1,
             'duration' => 3
         ]);
 

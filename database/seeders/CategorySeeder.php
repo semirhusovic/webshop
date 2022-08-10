@@ -22,10 +22,10 @@ class CategorySeeder extends Seeder
         Category::query()->create(['id' => 2]);
 
 
-        CategoryTranslation::query()->create(['category_id'=>1, 'categoryName'=>'Food', 'locale'=>'en']);
-        CategoryTranslation::query()->create(['category_id'=>1, 'categoryName'=>'Hrana', 'locale'=>'me']);
+        CategoryTranslation::query()->create(['category_id'=>1, 'category_name'=>'Food', 'locale'=>'en']);
+        CategoryTranslation::query()->create(['category_id'=>1, 'category_name'=>'Hrana', 'locale'=>'me']);
 
-        CategoryTranslation::query()->create(['category_id'=>2, 'categoryName'=>'Tech', 'locale'=>'en']);
-        CategoryTranslation::query()->create(['category_id'=>2, 'categoryName'=>'Tehnologija', 'locale'=>'me']);
+        CategoryTranslation::query()->create(['category_id'=>2, 'category_name'=>'Tech', 'locale'=>'en']);
+        CategoryTranslation::query()->create(['category_id'=>2, 'category_name'=>'Tehnologija', 'locale'=>'me']);
     }
 }

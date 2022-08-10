@@ -15,47 +15,43 @@ class Product extends Model implements TranslatableContract
 
     protected $guarded = [];
     protected $perPage = 5;
-    public $translatedAttributes = ['productName', 'productDescription'];
+    public $translatedAttributes = ['product_name', 'product_description'];
     protected $appends = array('total_price');
-    protected $with = ['images','categories','promotions','discounts','manufacturer'];
-//    public $sortable = ['productName', 'total_price','created_at','manufacturer_id'];
+    protected $with = ['images','categories','promotions','discounts','manufacturer','translation'];
+    public $sortable = ['product_manufacturing_date','product_price','total_price','created_at','manufacturer_id'];
 
-    public function categories()
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function carts()
+    public function carts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cart::class);
     }
 
-    public function images()
+    public function images(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
-    public function country()
+    public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
 
-    public function stock()
+    public function stock(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Stock::class);
     }
 
-    public function manufacturer()
+    public function manufacturer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
 
-    public function promotions()
+    public function promotions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Promotion::class);
     }
@@ -83,8 +79,6 @@ class Product extends Model implements TranslatableContract
         return $data;
     }
 
-
-
     public function getTotalDiscountAttribute()
     {
         return $this->allDiscounts()
@@ -95,8 +89,25 @@ class Product extends Model implements TranslatableContract
         ->sum();
     }
 
-    public function getTotalPriceAttribute()
+    public function getTotalPriceAttribute(): string
     {
-        return Number_format($this->productPrice - $this->total_discount, 2);
+        return Number_format($this->product_price - $this->total_discount, 2);
     }
+
+    public function nameSortable($query, $direction)
+    {
+        $language = session('language') ? session('language') : 'en';
+        return $query->join('product_translations', 'products.id', '=', 'product_translations.product_id')
+            ->where('locale', '=', $language)
+            ->orderBy('product_name', $direction)
+            ->select('products.*');
+    }
+
+    public function manufacturerSortable($query, $direction)
+    {
+        return $query->join('manufacturers', 'products.manufacturer_id', '=', 'manufacturers.id')
+            ->orderBy('manufacturer_name', $direction)
+            ->select('products.*');
+    }
+
 }

@@ -47,45 +47,13 @@
                 <!-- End slide link -->
 
                 <!-- Slide position -->
-                <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Slide position
-                </span>
-                    <div class="mt-2">
-                        <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
-                            <input type="radio"
-                                   class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                   name="order" value="1" {{$slider->order == 1 ? 'checked' : ''}}>
-                            <span class="ml-2">1</span>
-                        </label>
-                        <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input type="radio"
-                                   class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                   name="order" value="2" {{$slider->order == 2 ? 'checked' : ''}}>
-                            <span class="ml-2">2</span>
-                        </label>
-                        <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input type="radio"
-                                   class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                   name="order" value="3" {{$slider->order == 3 ? 'checked' : ''}}>
-                            <span class="ml-2">3</span>
-                        </label>
-                        <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input type="radio"
-                                   class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                   name="order" value="4" {{$slider->order == 4 ? 'checked' : ''}}>
-                            <span class="ml-2">4</span>
-                        </label>
-                        <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                            <input type="radio"
-                                   class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                   name="order" value="5" {{$slider->order == 5 ? 'checked' : ''}}>
-                            <span class="ml-2">5</span>
-                        </label>
-                    </div>
-                </div>
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Position</span>
+                    <input value="{{$slider->position}}" type="number" min="1" max="10" name="position"
+                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                           placeholder="3">
+                </label>
                 <!-- End slide position -->
-
 
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
@@ -102,7 +70,7 @@
 
 
                 <div class="relative w-10 h-10 mr-3 rounded-full md:block">
-                    <img class="object-cover w-10 h-10" src="/public/img/{{$slider->image->fileName}}" alt=""
+                    <img class="object-cover w-10 h-10" src="/public/img/{{$slider->image->first()->file_name}}" alt=""
                          loading="lazy">
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                 </div>
@@ -112,7 +80,7 @@
                     <label class="flex items-center dark:text-gray-400">Choose an image</label>
                     <input type="file"
                            class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="image">
+                           name="image[]">
                 </div>
 
                 <div class="my-8">

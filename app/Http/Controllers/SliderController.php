@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
 use App\Models\Slider;
 use App\Http\Requests\StoreSliderRequest;
 use App\Http\Requests\UpdateSliderRequest;
-use Illuminate\Support\Facades\File;
+use App\Services\SliderService;
+
 
 class SliderController extends Controller
 {
+    private $sliderService;
+
+    public function __construct(SliderService $service)
+    {
+        $this->sliderService = $service;
+    }
+
     public function index()
     {
         $sliders = Slider::query()->paginate();
@@ -23,21 +30,7 @@ class SliderController extends Controller
 
     public function store(StoreSliderRequest $request)
     {
-//        dd($request);
-        if ($request->validated()['image']) {
-            $file= $request->validated()['image'];
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('public/img'), $filename);
-        }
-//        $created_slider = Slider::query()->create(collect($validated)->except(['image'])->toArray());
-        $created_slider = Slider::query()->create($request->except(['image']));
-
-        $image = Image::query()->create([
-            'imageable_id' => $created_slider->id,
-            'imageable_type' => 'App\Models\Slider',
-            'fileName' => $filename
-        ]);
-
+        $this->sliderService->createSlide($request);
         return redirect()->route('slider.index')->withToastSuccess('Slide created successfully!');
     }
 
@@ -48,35 +41,13 @@ class SliderController extends Controller
 
     public function update(UpdateSliderRequest $request, Slider $slider)
     {
-        if ($request->file('image')) {
-            // Brisanje fajla
-            if (File::exists('public/img/'. $slider->image->fileName)) {
-                File::delete('public/img/'. $slider->image->fileName);
-            }
-            // Brisanje iz baze
-            Image::destroy($slider->image->id);
-            $file= $request->file('image');
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('public/img'), $filename);
-            $image = Image::query()->create([
-                'imageable_id' => $slider->id,
-                'imageable_type' => 'App\Models\Slider',
-                'fileName' => $filename
-            ]);
-        }
-        $slider->updateOrFail($request->except('image'));
+        $this->sliderService->updateSlide($request, $slider);
         return redirect()->route('slider.index')->withToastSuccess('Slide updated successfully!');
     }
 
     public function destroy(Slider $slider)
     {
-        // Brisanje fajla
-        if (File::exists('public/img/'. $slider->image->fileName)) {
-            File::delete('public/img/'. $slider->image->fileName);
-        }
-        // Brisanje iz baze
-        Image::destroy($slider->image->id);
-        $slider->delete();
+        $this->sliderService->deleteSlide($slider);
         return redirect()->route('slider.index')->withToastSuccess('Slide deleted successfully!');
     }
 }

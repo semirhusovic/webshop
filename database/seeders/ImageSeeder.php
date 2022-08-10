@@ -18,13 +18,13 @@ class ImageSeeder extends Seeder
         Image::query()->create([
             'imageable_id' => 1,
             'imageable_type' => 'App\Models\Product',
-            'fileName' => 'xiaomi5g.webp'
+            'file_name' => 'xiaomi5g.webp'
         ]);
 
         Image::query()->create([
             'imageable_id' => 1,
             'imageable_type' => 'App\Models\Slider',
-            'fileName' => 'vegetables.jpg'
+            'file_name' => 'vegetables.jpg'
         ]);
     }
 }

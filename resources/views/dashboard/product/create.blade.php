@@ -14,7 +14,7 @@
                 <!-- title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
-                    <input name="en[productName]" value="{{old('en[productName]')}}"
+                    <input name="en[product_name]" value="{{old('en[product_name]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1">
                 </label>
@@ -23,7 +23,7 @@
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
                     <span class="text-red-600">[ME]</span>
-                    <input name="me[productName]" value="{{old('me[productName]')}}"
+                    <input name="me[product_name]" value="{{old('me[product_name]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1">
                 </label>
@@ -32,7 +32,7 @@
                 <!-- Price -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product price</span>
-                    <input name="productPrice" value="{{old('productPrice')}}"
+                    <input name="product_price" value="{{old('product_price')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12">
                 </label>
@@ -57,24 +57,24 @@
                 <!-- Description -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
-                    <textarea name="en[productDescription]" rows="6"
+                    <textarea name="en[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product">{{old('en[productDescription]')}}</textarea>
+                              placeholder="Description of your product">{{old('en[product_description]')}}</textarea>
                 </label>
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
                     <span class="text-red-600">[ME]</span>
-                    <textarea name="me[productDescription]" rows="6"
+                    <textarea name="me[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product">{{old('me[productDescription]')}}</textarea>
+                              placeholder="Description of your product">{{old('me[product_description]')}}</textarea>
                 </label>
                 <!-- End discount price -->
 
                 <!-- Slide link -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Manufacturing date</span>
-                    <input type="date" name="productManufacturingDate" value="{{old('productManufacturingDate')}}"
+                    <input type="date" name="product_manufacturing_date" value="{{old('product_manufacturing_date')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             >
                 </label>
@@ -84,7 +84,7 @@
                 <!-- Slide link -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Months of warrancy</span>
-                    <input name="productMonthsOfWarranty" value="{{old('productMonthsOfWarranty')}}"
+                    <input name="product_months_of_warranty" value="{{old('product_months_of_warranty')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="24">
                 </label>
@@ -100,7 +100,7 @@
                             <option></option>
                             @foreach($countries as $country)
                                 <option
-                                    value="{{$country->id}}" {{ old('country_id' == $country->id ? 'selected' : '')}}>{{$country->countryName}}</option>
+                                    value="{{$country->id}}" {{ old('country_id' == $country->id ? 'selected' : '')}}>{{$country->country_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -118,7 +118,7 @@
                         autocomplete="off">
 {{--                        <option value="">Select a category...</option>--}}
                         @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->categoryName}}</option>
+                            <option value="{{$category->id}}">{{$category->category_name}}</option>
                         @endforeach
                     </select>
                     </label>
@@ -135,7 +135,7 @@
                             <option></option>
                             @foreach($manufacturers as $manufacturer)
                                 <option
-                                    value="{{$manufacturer->id}}" {{ old('manufacturer_id' == $manufacturer->id ? 'selected' : '')}}>{{$manufacturer->manufacturerName}}</option>
+                                    value="{{$manufacturer->id}}" {{ old('manufacturer_id' == $manufacturer->id ? 'selected' : '')}}>{{$manufacturer->manufacturer_name}}</option>
                             @endforeach
                         </select>
                     </label>

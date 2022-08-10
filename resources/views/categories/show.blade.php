@@ -1,8 +1,8 @@
-<h2>{{ $category->categoryName }}</h2>
+<h2>{{ $category->category_name }}</h2>
 
 Products:
 <ol>
     @foreach ($products as $product)
-        <li>{{ $product->productName }} (${{ $product->productPrice }})</li>
+        <li>{{ $product->product_name }} (${{ $product->product_price }})</li>
     @endforeach
 </ol>

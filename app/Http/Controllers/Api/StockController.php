@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
+    //test
     public function show($id)
     {
         $st = Stock::query()

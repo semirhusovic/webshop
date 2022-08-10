@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('link');
             $table->boolean('isActive');
-            $table->integer('order');
+            $table->integer('position');
             $table->integer('duration');
             $table->timestamps();
         });

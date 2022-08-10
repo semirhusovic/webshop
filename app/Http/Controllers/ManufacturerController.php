@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreManufacturerRequest;
 use App\Http\Requests\UpdateManufacturerRequest;
+use App\Services\ManufacturerService;
 use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller
 {
+    private $manufacturerService;
+
+    public function __construct(ManufacturerService $service)
+    {
+        $this->manufacturerService = $service;
+    }
+
     public function index(Request $request)
     {
         $filter = $request->filter;
-        if (!empty($filter)) {
-            $manufacturers = Manufacturer::query()
-                ->where('manufacturerName', 'like', '%'.$filter.'%')
-                ->paginate();
-        } else {
-            $manufacturers = Manufacturer::query()->paginate();
-        }
-        return view('dashboard.manufacturer.index', ["manufacturers" => $manufacturers,'filter' => $filter]);
+        $manufacturers = $this->manufacturerService->searchItems($request);
+        return view('dashboard.manufacturer.index', compact('manufacturers', 'filter'));
     }
 
     public function create()
@@ -30,7 +31,7 @@ class ManufacturerController extends Controller
 
     public function store(StoreManufacturerRequest $request)
     {
-        $newCountry = Manufacturer::query()->create($request->all());
+        $this->manufacturerService->createManufacturer($request);
         return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer created successfully!');
     }
     public function show(Manufacturer $manufacturer)
@@ -45,13 +46,13 @@ class ManufacturerController extends Controller
 
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
-        $manufacturer->updateOrFail($request->all());
+        $this->manufacturerService->updateManufacturer($request, $manufacturer);
         return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer updated successfully!');
     }
 
     public function destroy(Manufacturer $manufacturer)
     {
-        $manufacturer->delete();
+        $this->manufacturerService->deleteManufacturer($manufacturer);
         return redirect()->route('manufacturer.index')->withToastSuccess('Manufacturer deleted successfully!');
     }
 }

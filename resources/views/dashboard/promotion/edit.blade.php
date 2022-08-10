@@ -1,7 +1,7 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit promotion: {{$promotion->promotionName}}
+            Edit promotion: {{$promotion->promotion_name}}
         </h2>
 
 
@@ -12,10 +12,10 @@
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Promotion name</span>
-                    <input name="en[promotionName]"
+                    <input name="en[promotion_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type name here"
-                           value="{{$promotion->translations[0]->promotionName}}">
+                           value="{{$promotion->translations[0]->promotion_name}}">
                 </label>
                 <!-- End slide title -->
 
@@ -23,10 +23,10 @@
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Promotion name </span>
                     <span class="text-red-600">[SR]</span>
-                    <input name="sr[promotionName]"
+                    <input name="sr[promotion_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type name here"
-                           value="{{$promotion->translations[1]->promotionName}}">
+                           value="{{$promotion->translations[1]->promotion_name}}">
                 </label>
                 <!-- End slide title -->
 
@@ -42,7 +42,7 @@
                             autocomplete="off">
 
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}">{{$category->categoryName}}</option>
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -58,7 +58,7 @@
                             id="select-product" name="products[]" multiple
                             autocomplete="off">
                             @foreach ($products as $product)
-                                <option value="{{$product->id}}">{{$product->productName}}</option>
+                                <option value="{{$product->id}}">{{$product->product_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -74,7 +74,7 @@
                             <option></option>
                             @foreach($manufacturers as $manufacturer)
                                 <option
-                                    value="{{$manufacturer->id}}" {{ $promotion->manufacturer == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturerName}}</option>
+                                    value="{{$manufacturer->id}}" {{ $promotion->manufacturer == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturer_name}}</option>
                             @endforeach
                         </select>
                     </label>

@@ -17,21 +17,29 @@
                 <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th class="px-4 py-3">Title</th>
-                    <th class="px-4 py-3">Order</th>
+                    <th class="px-4 py-3">Position</th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Date</th>
                     <th class="px-4 py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-
+                @if(count($sliders) == 0)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td colspan="5" class="px-4 py-3">
+                            <div class="mx-auto">
+                                <p class="font-semibold mx-auto text-center">No results found</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
                 @foreach($sliders as $slide)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
                                 <!-- Avatar with inset shadow -->
                                 <div class="relative hidden w-10 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full " src="/public/img/{{$slide->image->fileName}}" alt="" loading="lazy">
+                                    <img class="object-cover w-full h-full " src="/public/img/{{$slide->image->first()->file_name}}" alt="" loading="lazy">
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                 </div>
                                 <div>
@@ -43,7 +51,7 @@
                             </div>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$slide->order}}
+                            {{$slide->position}}
                         </td>
                         <td class="px-4 py-3 text-xs">
                         <span class="px-2 py-1 font-semibold leading-tight {{ $slide->isActive ? 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100' : 'text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100' }} rounded-full">
@@ -60,7 +68,6 @@
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                                     </svg>
                                 </a>
-
                                 <form id="delete{{$slide->id}}" method="post" action="{{route('slider.destroy',$slide->id)}}">
                                     @csrf
                                     @method('DELETE')
@@ -70,37 +77,16 @@
                                         </svg>
                                     </button>
                                 </form>
-
-
                             </div>
                         </td>
                     </tr>
                 @endforeach
-
-
                 </tbody>
             </table>
         </div>
+    </div>
         {{ $sliders->links('vendor.pagination.custom-pagination') }}
     </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            function confirmDelete(e,id,name){
-                e.preventDefault();
-                console.log(e);
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to restore " + name + ' slide',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#7e3af2',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    document.getElementById('delete'+id).submit();
-                    }
-                })
-            }
-        </script>
+        <script src="{{asset('js/confirmDelete.js')}}"></script>
 </x-dashboard>

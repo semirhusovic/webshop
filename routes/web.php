@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,20 +38,22 @@ use Illuminate\Support\Facades\Route;
 //    return view('dashboard.index');
 //})->middleware(['auth'])->name('dashboard');
 
+Route::group(['prefix' => 'dashboard','middleware'=> ['auth','isAdmin'] ], function () {
+    Route::get('/', [HomeController::class,'index'])->name('dashboard');
+    Route::resource('/slider', SliderController::class);
+    Route::POST('/products-by-category', [ProductController::class,'productsByCategory']);
+    Route::resource('/product', ProductController::class);
+    Route::resource('/country', CountryController::class);
+    Route::resource('/manufacturer', ManufacturerController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/discount', DiscountController::class);
+    Route::resource('/stock', StockController::class);
+    Route::resource('/user', UserController::class)->except('show', 'create');
+    Route::post('/promotion/remove-product/{promotion}/{product}', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
+    Route::POST('/promotion/filter-products', [PromotionController::class,'filterProducts']);
+    Route::resource('/promotion', PromotionController::class);
+});
 
-Route::get('/dashboard', [HomeController::class,'index'])->middleware(['auth'])->name('dashboard');
-
-
-Route::resource('/dashboard/slider', SliderController::class);
-Route::resource('/dashboard/product', ProductController::class);
-Route::resource('/dashboard/country', CountryController::class);
-Route::resource('/dashboard/manufacturer', ManufacturerController::class);
-Route::resource('/dashboard/category', CategoryController::class);
-Route::resource('/dashboard/discount', DiscountController::class);
-Route::resource('/dashboard/stock', StockController::class);
-Route::post('/dashboard/promotion/remove-product', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
-Route::POST('/dashboard/promotion/filter-products', [PromotionController::class,'filterProducts']);
-Route::resource('/dashboard/promotion', PromotionController::class);
 
 
 require __DIR__.'/auth.php';

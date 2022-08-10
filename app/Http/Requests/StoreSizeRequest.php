@@ -24,7 +24,7 @@ class StoreSizeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'size_name' => ['required', 'string', 'max:255'],
         ];
     }
 }

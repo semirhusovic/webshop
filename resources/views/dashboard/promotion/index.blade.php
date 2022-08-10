@@ -19,7 +19,7 @@
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input value="{{$filter}}" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Search for products" aria-label="Search" name="filter">
+                    <input value="{{$filter}}" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Search for products" aria-label="Search" name="filter" autocomplete="off">
                 </div>
                 <button type="submit" class="md:inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Search</button>
@@ -31,19 +31,25 @@
                 <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th class="px-4 py-3">Name</th>
-{{--                    <th class="px-4 py-3">Order</th>--}}
-{{--                    <th class="px-4 py-3">Status</th>--}}
                     <th class="px-4 py-3">Number of products</th>
                     <th class="px-4 py-3">Date created</th>
                     <th class="px-4 py-3">Actions</th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-
+                @if(count($promotions) == 0)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td colspan="4" class="px-4 py-3">
+                            <div class="mx-auto">
+                                <p class="font-semibold mx-auto text-center">No results found</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
                 @foreach($promotions as $promotion)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            <a href="{{route('promotion.show',$promotion->id)}}"> {{$promotion->promotionName}}</a>
+                            <a href="{{route('promotion.show',$promotion->id)}}"> {{$promotion->promotion_name}}</a>
                         </td>
 
                         <td class="px-4 py-3 text-sm">
@@ -65,14 +71,12 @@
                                 <form id="delete{{$promotion->id}}" method="post" action="{{route('promotion.destroy',$promotion->id)}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete(event,{{$promotion->id.','. "'".$promotion->promotionName."'"}})" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
+                                    <button type="button" onclick="confirmDelete(event,{{$promotion->id.','. "'".$promotion->promotion_name."'"}})" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
                                 </form>
-
-
                             </div>
                         </td>
                     </tr>
@@ -85,23 +89,5 @@
         {{ $promotions->links('vendor.pagination.custom-pagination') }}
     </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            function confirmDelete(e,id,name){
-                e.preventDefault();
-                console.log(e);
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to restore " + name,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#7e3af2',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete'+id).submit();
-                    }
-                })
-            }
-        </script>
+        <script src="{{asset('js/confirmDelete.js')}}"></script>
 </x-dashboard>

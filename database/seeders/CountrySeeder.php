@@ -23,13 +23,13 @@ class CountrySeeder extends Seeder
         Country::query()->create(['id' => 3]);
 
 
-        CountryTranslation::query()->create(['country_id'=>1, 'countryName'=>'China', 'locale'=>'en']);
-        CountryTranslation::query()->create(['country_id'=>1, 'countryName'=>'Kina', 'locale'=>'me']);
+        CountryTranslation::query()->create(['country_id'=>1, 'country_name'=>'China', 'locale'=>'en']);
+        CountryTranslation::query()->create(['country_id'=>1, 'country_name'=>'Kina', 'locale'=>'me']);
 
-        CountryTranslation::query()->create(['country_id'=>2, 'countryName'=>'Hungary', 'locale'=>'en']);
-        CountryTranslation::query()->create(['country_id'=>2, 'countryName'=>'Madjarska', 'locale'=>'me']);
+        CountryTranslation::query()->create(['country_id'=>2, 'country_name'=>'Hungary', 'locale'=>'en']);
+        CountryTranslation::query()->create(['country_id'=>2, 'country_name'=>'Madjarska', 'locale'=>'me']);
 
-        CountryTranslation::query()->create(['country_id'=>3, 'countryName'=>'Montenegro', 'locale'=>'en']);
-        CountryTranslation::query()->create(['country_id'=>3, 'countryName'=>'Crna Gora', 'locale'=>'me']);
+        CountryTranslation::query()->create(['country_id'=>3, 'country_name'=>'Montenegro', 'locale'=>'en']);
+        CountryTranslation::query()->create(['country_id'=>3, 'country_name'=>'Crna Gora', 'locale'=>'me']);
     }
 }

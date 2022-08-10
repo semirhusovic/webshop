@@ -17,22 +17,22 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::query()->create([
-            'productPrice' => 150,
-            'productMonthsOfWarranty' => 12,
-            'productManufacturingDate' => '2022-07-21',
+            'product_price' => 150,
+            'product_months_of_warranty' => 12,
+            'product_manufacturing_date' => '2022-07-21',
             'country_id' => 1,
             'manufacturer_id' => 1,
         ]);
 
         ProductTranslation::query()->create([
             'product_id'=>'1',
-            'productName'=>'Xiaomi Mi 11 Lite 5g',
-            'productDescription'=>'Lightweight, 5G SpeedWith the true flagship-level device，it can add to the excitement of your 5G life and show your style in any aspect. LightConvenient and portable, carry it around with ease. SlimThin and light, ultra-comfortable feel.',
+            'product_name'=>'Xiaomi Mi 11 Lite 5g',
+            'product_description'=>'Lightweight, 5G SpeedWith the true flagship-level device，it can add to the excitement of your 5G life and show your style in any aspect. LightConvenient and portable, carry it around with ease. SlimThin and light, ultra-comfortable feel.',
             'locale'=>'en']);
         ProductTranslation::query()->create([
             'product_id'=>'1',
-            'productName'=>'Xiaomi Mi 11 Lite 5g',
-            'productDescription'=>'Opis za Xiaomi mi 11 lite 5g',
+            'product_name'=>'Xiaomi Mi 11 Lite 5g',
+            'product_description'=>'Opis za Xiaomi mi 11 lite 5g',
             'locale'=>'me']);
     }
 }

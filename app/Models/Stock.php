@@ -9,6 +9,7 @@ class Stock extends Model
 {
     use HasFactory;
     protected $with = ['color','product','size'];
+    protected $guarded = [];
 
     public function color()
     {

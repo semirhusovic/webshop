@@ -138,6 +138,15 @@
                     <tbody
                         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                     >
+                    @if(count($orders) == 0)
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td colspan="4" class="px-4 py-3">
+                                <div class="mx-auto">
+                                <p class="font-semibold mx-auto text-center">No results found</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                     @foreach($orders as $order)
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3">
@@ -154,7 +163,7 @@
                                 <span
                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                                 >
-                           {{'$ '.$order->totalAmount}}
+                           {{'$ '.$order->total_amount}}
                         </span>
                             </td>
                             <td class="px-4 py-3 text-xs">

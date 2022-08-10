@@ -2,46 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDiscountRequest;
+use App\Http\Requests\UpdateDiscountRequest;
 use App\Models\Discount;
-use App\Models\Manufacturer;
+use App\Services\DiscountService;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
+    private $discountService;
+
+    public function __construct(DiscountService $service)
+    {
+        $this->discountService = $service;
+    }
+
     public function index(Request $request)
     {
         $filter = $request->filter;
-        if (!empty($filter)) {
-            $discounts = Discount::query()
-                ->where('discountName', 'like', '%'.$filter.'%')
-                ->paginate();
-        } else {
-            $discounts = Discount::query()->paginate();
-        }
-        return view('dashboard.discount.index', ['discounts' => $discounts,'filter' => $filter ]);
+        $discounts = $this->discountService->searchItems($request);
+        return view('dashboard.discount.index', compact('discounts','filter'));
     }
-
 
     public function create()
     {
         return view('dashboard.discount.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreDiscountRequest $request)
     {
-        $discount = Discount::query()->create($request->all());
+        $this->discountService->createDiscount($request);
         return redirect()->route('discount.index')->withToastSuccess('Discount created successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     public function edit(Discount $discount)
@@ -49,16 +40,15 @@ class DiscountController extends Controller
         return view('dashboard.discount.edit', ['discount' => $discount]);
     }
 
-    public function update(Request $request, Discount $discount)
+    public function update(UpdateDiscountRequest $request, Discount $discount)
     {
-        $discount->updateOrFail($request->all());
+        $this->discountService->updateDiscount($request, $discount);
         return redirect()->route('discount.index')->withToastSuccess('Discount updated successfully!');
     }
 
-
     public function destroy(Discount $discount)
     {
-        $discount->delete();
+        $this->discountService->deleteDiscount($discount);
         return redirect()->route('discount.index')->withToastSuccess('Discount deleted successfully!');
     }
 }

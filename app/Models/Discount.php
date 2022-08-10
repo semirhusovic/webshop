@@ -44,7 +44,7 @@ class Discount extends Model
         }
 
         if ($this->type === 'percentage') {
-            return $product->productPrice * ($this->value / 100);
+            return $product->product_price * ($this->value / 100);
         }
 
         return 0;

@@ -11,18 +11,17 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $language = session('language') ? session('language') : 'en';
+
         $filter = $request->filter;
-        if (!empty($filter)) {
-            $categories = Category::query()
-                ->whereHas('translations', function ($query) use ($filter, $language) {
-                    $query->where('locale', '=', $language);
-                    $query->where('categoryName', 'like', '%'.$filter.'%');
-                })
-                ->paginate();
-        } else {
-            $categories = Category::query()->paginate();
-        }
+        $language = session('language') ? session('language') : 'en';
+        $categories = Category::query()
+            ->when($request->filter, function ($query) use ($filter, $language) {
+                $query->whereHas('translations', function ($query) use ($filter, $language) {
+                    $query->where('locale', 'like', $language);
+                    $query->where('category_name', 'like', '%'.$filter.'%');
+                });
+            })
+            ->paginate();
         return view('dashboard.category.index', ["categories" => $categories,"filter" => $filter]);
     }
 
@@ -33,7 +32,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        $newCategory = Category::query()->create($request->all());
+        Category::query()->create($request->all());
         return redirect()->route('category.index')->withToastSuccess('Category created successfully!');
     }
 

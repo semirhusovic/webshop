@@ -27,7 +27,7 @@ class StoreCountryRequest extends FormRequest
            //
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale . '.countryName'] = 'required|string|max:40|min:3';
+            $rules[$locale . '.country_name'] = 'required|string|max:40|min:3';
         }
         return $rules;
     }

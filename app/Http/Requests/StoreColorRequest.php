@@ -24,7 +24,7 @@ class StoreColorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'color_name' => ['required', 'string', 'max:255'],
         ];
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->string('locale')->index();
-            $table->string('countryName');
+            $table->string('country_name');
             $table->unique(['country_id', 'locale']);
         });
     }

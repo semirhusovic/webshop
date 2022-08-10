@@ -3,70 +3,47 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\CartService;
+use App\Services\SliderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    private $cartService;
 
-    public function addToCart(Request $request)
+    public function __construct(CartService $service)
     {
-        $cart = Cart::firstOrCreate([
-            'user_id' => auth()->id()
-        ]);
-        $product = Product::query()->where('id', $request->product_id)->first();
-        $exists = $cart->products->where('id', '=', $request->product_id);
-        if (count($exists) > 0) {
-            $cart->products()->updateExistingPivot($request->product_id, [
-                'quantity' => $request->quantity + $exists->first()->pivot->quantity,
-            ]);
-        } else {
-            $cart->products()->attach($product->id, ['quantity' => $request->quantity]);
-        }
-
-        return response(['message' => 'Product added to cart!'
-        ], 201);
+        $this->cartService = $service;
     }
 
-    public function removeFromCart(Request $request)
+    public function addToCart(Cart $cart, Product $product)
     {
-        $cart = Cart::findOrFail([
-            'user_id' => auth()->id()
-        ])->first();
-
-        $quantity = $cart->products->where('id', '=', $request->product_id)->first()->pivot->quantity;
-
-        if ($quantity>1) {
-            $cart->products()->updateExistingPivot($request->product_id, [
-                'quantity' => $quantity - $request->quantity,
-            ]);
-        }
-
-        if ($quantity==1) {
-            $cart->products()->detach($request->product_id);
-        }
-
-        return response(['message' => 'Product removed from cart!'
-        ], 201);
+        $this->cartService->addToCart($cart, $product);
+        return response(['message' => 'Product added to cart!'], 200);
     }
 
-    public function deleteFromCart(Request $request)
-    {
-        $cart = Cart::findOrFail([
-            'user_id' => auth()->id()
-        ])->first();
-        $cart->products()->detach($request->product_id);
 
-        return response(['message' => 'Product deleted from cart!'
-        ], 200);
+    public function removeFromCart(Cart $cart, Product $product)
+    {
+        $this->cartService->removeFromCart($cart, $product);
+        return response(['message' => 'Product removed from cart!'], 204);
     }
 
-    public function getUserCartProducts()
+    public function deleteFromCart(Cart $cart, Product $product)
     {
-        return auth()->user()->cart->first()->products;
+        $this->cartService->deleteFromCart($cart, $product);
+        return response(['message' => 'Product deleted from cart!'], 204);
+    }
+
+    public function getUserCartProducts(Cart $cart)
+    {
+        return CartResource::collection($cart->products);
+//        return auth()->user()->cart->products;
     }
 }

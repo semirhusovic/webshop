@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,11 @@ class AuthController extends Controller
                 'error' => 'Invalid login credentials'
             ], 401);
         }
-        $user = User::query()->where('email', $request['email'])->firstOrFail();
+        $user = User::query()->with('cart')->where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
-            'user_email' => $user->email,
+            'user' => $user,
+//            'cart_id' => $user->cart->id,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
@@ -35,6 +37,9 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+        Cart::query()->create([
+            'user_id' => $user->id
         ]);
 
         return response()->json([

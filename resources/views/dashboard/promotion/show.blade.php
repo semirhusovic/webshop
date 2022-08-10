@@ -3,7 +3,7 @@
         <h2
             class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
         >
-            All items from: {{$promotion->promotionName}}
+            All items from: {{$promotion->promotion_name}}
         </h2>
 
         @foreach($promotion->discounts as $discount)
@@ -48,7 +48,7 @@
                                     <!-- Avatar with inset shadow -->
                                     <div class="relative hidden w-10 h-8 mr-3 rounded-full md:block">
                                         <img class="object-cover w-full h-full "
-                                             src="/public/img/{{$product->images->first()->fileName}} " alt=""
+                                             src="/public/img/{{$product->images->first()->file_name}} " alt=""
                                              loading="lazy">
                                         <div class="absolute inset-0 rounded-full shadow-inner"
                                              aria-hidden="true"></div>
@@ -56,13 +56,13 @@
                                     <div>
                                         <p class="font-semibold">{{$product->title}}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                                            {{$product->productName}}
+                                            {{$product->product_name}}
                                         </p>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{$product->manufacturer->manufacturerName}}
+                                {{$product->manufacturer->manufacturer_name}}
                             </td>
                             <td class="px-4 py-3 text-xs">
                         <span
@@ -71,7 +71,7 @@
                         </span>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{$product->productManufacturingDate}}
+                                {{$product->product_manufacturing_date}}
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">

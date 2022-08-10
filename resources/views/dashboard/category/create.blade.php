@@ -14,7 +14,7 @@
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Category name</span>
-                    <input value="{{old('en[categoryName]')}}" name="en[categoryName]"
+                    <input value="{{old('en[category_name]')}}" name="en[category_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type name here">
                 </label>
@@ -24,7 +24,7 @@
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Category name </span>
                     <span class="text-red-600">[ME]</span>
-                    <input value="{{old('me[categoryName]')}}" name="me[categoryName]"
+                    <input value="{{old('me[category_name]')}}" name="me[category_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type name here">
                 </label>
@@ -40,7 +40,7 @@
                             <option></option>
                             @foreach($categories as $category)
                                 <option
-                                    value="{{$category->id}}" {{ old('$category_id' == $category->id ? 'selected' : '')}}>{{$category->categoryName}}</option>
+                                    value="{{$category->id}}" {{ old('$category_id' == $category->id ? 'selected' : '')}}>{{$category->category_name}}</option>
                             @endforeach
                         </select>
                     </label>

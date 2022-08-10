@@ -15,8 +15,8 @@ class ManufacturerSeeder extends Seeder
      */
     public function run()
     {
-        Manufacturer::query()->create(['manufacturerName' => 'Apple']);
-        Manufacturer::query()->create(['manufacturerName' => 'Samsung']);
-        Manufacturer::query()->create(['manufacturerName' => 'Xiaomi']);
+        Manufacturer::query()->create(['manufacturer_name' => 'Apple']);
+        Manufacturer::query()->create(['manufacturer_name' => 'Samsung']);
+        Manufacturer::query()->create(['manufacturer_name' => 'Xiaomi']);
     }
 }

@@ -1,7 +1,7 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit category: {{$category->categoryName}}
+            Edit category: {{$category->category_name}}
         </h2>
 
 
@@ -12,14 +12,14 @@
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Category name</span>
-                    <input name="en[categoryName]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Category name" value="{{$category->translations[0]->categoryName}}">
+                    <input name="en[category_name]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Category name" value="{{$category->translations[0]->category_name}}">
                 </label>
                 <!-- End slide title -->
 
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Category name</span> <span class="text-red-600">[ME]</span>
-                    <input name="me[categoryName]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Category name" value="{{$category->translations[1]->categoryName}}">
+                    <input name="me[category_name]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Category name" value="{{$category->translations[1]->category_name}}">
                 </label>
                 <!-- End slide title -->
 
@@ -33,7 +33,7 @@
                             <option></option>
                             @foreach($categories as $c)
                                 <option
-                                    value="{{$c->id}}" {{ $c->id == $category->category_id ? 'selected' : ''}}>{{$c->categoryName}}</option>
+                                    value="{{$c->id}}" {{ $c->id == $category->category_id ? 'selected' : ''}}>{{$c->category_name}}</option>
                             @endforeach
                         </select>
                     </label>

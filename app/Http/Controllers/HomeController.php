@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Slider;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,7 +15,7 @@ class HomeController extends Controller
         $products = Product::query()->count();
         $orderNumber = Order::query()->count();
         $orders = Order::query()->with('user')->paginate();
-        $money = Order::query()->sum('totalAmount');
+        $money = Order::query()->sum('total_amount');
 
         return view('dashboard.index', compact('users', 'products', 'orders', 'money', 'orderNumber'));
     }

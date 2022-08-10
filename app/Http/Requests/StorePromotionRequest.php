@@ -23,17 +23,13 @@ class StorePromotionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'en.promotionName' => ['required','string','min:3','max:40'],
-            'sr.promotionName' => ['required','string','min:3','max:40']
+        $rules =  [
+            //
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.promotion_name'] = 'required|string|max:40|min:3';
+        }
+        return $rules;
     }
 
-    public function messages()
-    {
-        return [
-            'sr.promotionName.required' => 'Promotion name in Serbian is required.',
-            'en.promotionName.required' => 'Promotion name in English is required.',
-        ];
-    }
 }

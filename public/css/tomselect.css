@@ -178,7 +178,7 @@
 .ts-control,
 .ts-control input {
     /*color: #303030;*/
-    color: purple;
+    color: #f55df5;
     font-family: inherit;
     font-size: 13px;
     line-height: 18px;
@@ -295,7 +295,8 @@
     width: 100%;
     z-index: 10;
     border: 1px solid #d0d0d0;
-    background: #7E3AF2;
+    /*background: #7E3AF2;*/
+    background: #1f005e;
     margin: 0.25rem 0 0 0;
     border-top: 0 none;
     box-sizing: border-box;

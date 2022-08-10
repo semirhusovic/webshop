@@ -23,8 +23,12 @@ class UpdatePromotionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
             //
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.promotion_name'] = 'required|string|max:50|min:3';
+        }
+        return $rules;
     }
 }

@@ -13,7 +13,7 @@ class Category extends Model implements TranslatableContract
     protected $with = ['translations'];
     protected $guarded = [];
     protected $perPage = 5;
-    public $translatedAttributes = ['categoryName'];
+    public $translatedAttributes = ['category_name'];
 
     public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

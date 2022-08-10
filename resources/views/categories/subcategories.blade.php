@@ -1,9 +1,9 @@
 @foreach ($categories as $category)
-    <li>{{$category->categoryName }}
+    <li>{{$category->category_name }}
         @if ($category->products)
         <ul>
             @foreach ($category->products as $product)
-            <li>{{$product->productName}}</li>
+            <li>{{$product->product_name}}</li>
             @endforeach
         </ul>
         @endif

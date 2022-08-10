@@ -23,8 +23,21 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'product_price' => ['required','numeric'],
+            'product_months_of_warranty' => ['required','integer'],
+            'image.*' => ['required','mimes:jpeg,png,jpg,webp'],
+            'category.*' => ['required'],
+            'category' => ['required'],
+            'country_id' => ['required'],
+            'manufacturer_id' => ['required'],
+            'product_manufacturing_date' => ['required','date'],
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.product_name'] = 'required|string|max:40|min:3';
+            $rules[$locale . '.product_description'] = 'required|string|max:500|min:3';
+        }
+
+        return $rules;
     }
 }

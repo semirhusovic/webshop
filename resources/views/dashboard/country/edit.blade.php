@@ -1,7 +1,7 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit slide: {{$country->countryName}}
+            Edit slide: {{$country->country_name}}
         </h2>
 
 
@@ -12,14 +12,14 @@
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Title</span>
-                    <input name="en[countryName]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Country name" value="{{$country->translations[0]->countryName}}">
+                    <input name="en[country_name]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Country name" value="{{$country->translations[0]->country_name}}">
                 </label>
                 <!-- End slide title -->
 
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Title</span> <span class="text-red-600">[ME]</span>
-                    <input name="me[countryName]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Country name" value="{{$country->translations[1]->countryName}}">
+                    <input name="me[country_name]" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Country name" value="{{$country->translations[1]->country_name}}">
                 </label>
                 <!-- End slide title -->
 

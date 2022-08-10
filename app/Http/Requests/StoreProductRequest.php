@@ -24,19 +24,19 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'productPrice' => ['required','numeric'],
-            'productMonthsOfWarranty' => ['required','integer'],
+            'product_price' => ['required','numeric'],
+            'product_months_of_warranty' => ['required','integer'],
             'image' => ['required'],
             'image.*' => ['required','mimes:jpeg,png,jpg,webp'],
             'category.*' => ['required'],
             'category' => ['required'],
             'country_id' => ['required'],
             'manufacturer_id' => ['required'],
-            'productManufacturingDate' => ['required','date'],
+            'product_manufacturing_date' => ['required','date'],
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale . '.productName'] = 'required|string|max:40|min:3';
-            $rules[$locale . '.productDescription'] = 'required|string|max:500|min:3';
+            $rules[$locale . '.product_name'] = 'required|string|max:40|min:3';
+            $rules[$locale . '.product_description'] = 'required|string|max:500|min:3';
         }
 
         return $rules;

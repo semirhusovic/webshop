@@ -11,12 +11,12 @@ class Slider extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
     public $translatedAttributes = ['title'];
-    protected $with = ['translations'];
+    protected $with = ['translations','image'];
     protected $guarded = [];
     protected $perPage = 5;
 
     public function image()
     {
-        return $this->morphOne('App\Models\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 }

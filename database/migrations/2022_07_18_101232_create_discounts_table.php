@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('discountName');
+            $table->string('discount_name');
             $table->string('type');
             $table->string('value');
             $table->datetime('expired_at');

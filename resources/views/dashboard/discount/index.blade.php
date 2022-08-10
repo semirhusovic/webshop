@@ -40,10 +40,19 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
+                @if(count($discounts) == 0)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td colspan="5" class="px-4 py-3">
+                            <div class="mx-auto">
+                                <p class="font-semibold mx-auto text-center">No results found</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
                 @foreach($discounts as $discount)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            {{$discount->discountName}}
+                            {{$discount->discount_name}}
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{$discount->type}}
@@ -65,7 +74,7 @@
                                 <form id="delete{{$discount->id}}" method="post" action="{{route('discount.destroy',$discount->id)}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete(event,{{$discount->id.','. "'".$discount->discountName."'"}})" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
+                                    <button type="button" onclick="confirmDelete(event,{{$discount->id.','. "'".$discount->discount_name."'"}})" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                         </svg>
@@ -85,23 +94,5 @@
         {{ $discounts->links('vendor.pagination.custom-pagination') }}
     </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            function confirmDelete(e,id,name){
-                e.preventDefault();
-                console.log(e);
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to restore " + name,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#7e3af2',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete'+id).submit();
-                    }
-                })
-            }
-        </script>
+        <script src="{{asset('js/confirmDelete.js')}}"></script>
 </x-dashboard>

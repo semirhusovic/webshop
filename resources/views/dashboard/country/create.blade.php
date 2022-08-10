@@ -14,7 +14,7 @@
                 <!-- Slide title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Country name</span>
-                    <input value="{{old('en[countryName]')}}" name="en[countryName]"
+                    <input value="{{old('en[country_name]')}}" name="en[country_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Slide name">
                 </label>
@@ -24,7 +24,7 @@
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Country name </span>
                     <span class="text-red-600">[ME]</span>
-                    <input value="{{old('me[countryName]')}}" name="me[countryName]"
+                    <input value="{{old('me[country_name]')}}" name="me[country_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Slide name">
                 </label>

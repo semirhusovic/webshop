@@ -20,7 +20,7 @@
             @foreach ($sliders as $slider)
                 <div class="item">
                     <a href="{{ $slider->link}} " target="_blank" rel="noopener">
-                        <img src="/public/img/{{$slider->image->fileName}}" data-src="{{$slider->image}}" alt="Slide"
+                        <img src="/public/img/{{$slider->image->file_name}}" data-src="{{$slider->image}}" alt="Slide"
                              class="">
                         <div class="slide-text"><span>{{$slider->title}}</span></div>
                     </a>
@@ -45,27 +45,27 @@
                     <article class="mb-4">
                         <a href="/"
                            class="rounded bg-gray-100 border border-gray-200 block relative p-1 hover:border-blue-300">
-                            <img src="/public/img/{{$product->images->first()->fileName}}"
-                                 class="mx-auto mix-blend-multiply w-auto max-h-64" alt="{{$product->productName}}">
+                            <img src="/public/img/{{$product->images->first()->file_name}}"
+                                 class="mx-auto mix-blend-multiply w-auto max-h-64" alt="{{$product->product_name}}">
                         </a>
                         <div class="pt-3">
                             <a class="float-right px-3 py-2 text-gray-400 border border-gray-300 rounded-md hover:border-teal-400 hover:text-teal-600"
                                href="/">
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
-                            @if($product->total_price < $product->productPrice)
+                            @if($product->total_price < $product->product_price)
                                 <p class="font-semibold">{{$product->total_price}}$
-                                    <del class="text-sm text-gray-500 line-through">{{$product->productPrice}}$</del>
+                                    <del class="text-sm text-gray-500 line-through">{{$product->product_price}}$</del>
                                 </p>
                             @else
-                                <p class="font-semibold">{{$product->productPrice}}$</p>
+                                <p class="font-semibold">{{$product->product_price}}$</p>
                             @endif
                             <h6>
                                 <a href="" class="text-gray-600 hover:text-blue-500">
-                                    {{$product->productName}}
+                                    {{$product->product_name}}
                                 </a>
                             </h6>
-                            <small class="text-sm text-gray-400"> {{$product->productDescription}}</small>
+                            <small class="text-sm text-gray-400"> {{$product->product_description}}</small>
                         </div>
                     </article>
                     <!-- COMPONENT: PRODUCT CARD //END -->

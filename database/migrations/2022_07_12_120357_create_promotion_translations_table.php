@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->foreignId('promotion_id')->constrained('promotions')->onDelete('cascade');
             $table->string('locale')->index();
-            $table->string('promotionName');
+            $table->string('promotion_name');
             $table->unique(['promotion_id', 'locale']);
         });
     }

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->decimal('invoiceTotal');
-            $table->decimal('invoiceDiscount');
-            $table->decimal('paymentTotal');
+            $table->decimal('invoice_total');
+            $table->decimal('invoice_discount');
+            $table->string('status');
             $table->foreignId('order_id')->constrained('orders');
             $table->timestamps();
         });

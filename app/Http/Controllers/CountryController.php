@@ -5,27 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
-use App\Models\Product;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Services\CountryService;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
+    private $countryService;
+    public function __construct(CountryService $service)
+    {
+        $this->countryService = $service;
+    }
+
+
     public function index(Request $request)
     {
         $filter = $request->filter;
-        if (!empty($filter)) {
-            $countries = Country::query()
-                ->whereHas('translations', function ($query) use ($filter) {
-                    $query->where('countryName', 'like', '%'.$filter.'%');
-                })
-                ->paginate();
-        } else {
-            $countries = Country::query()->paginate();
-        }
-
-
-
+        $countries = $this->countryService->searchItems($request);
         return view('dashboard.country.index', ["countries" => $countries,'filter' => $filter]);
     }
 
@@ -36,35 +31,24 @@ class CountryController extends Controller
 
     public function store(StoreCountryRequest $request)
     {
-        Country::query()->create($request->all());
+        $this->countryService->createCountry($request);
         return redirect()->route('country.index')->withToastSuccess('Country created successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Country $country)
-    {
-        //
     }
 
     public function edit(Country $country)
     {
-        return view('dashboard.country.edit', ['country' => $country]);
+        return view('dashboard.country.edit', compact('country'));
     }
 
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        $country->updateOrFail($request->all());
+        $this->countryService->updateCountry($request, $country);
         return redirect()->route('country.index')->withToastSuccess('Country updated successfully!');
     }
 
     public function destroy(Country $country)
     {
-        $country->delete();
+        $this->countryService->deleteCountry($country);
         return redirect()->route('country.index')->withToastSuccess('Country deleted successfully!');
     }
 }

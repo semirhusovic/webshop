@@ -9,22 +9,24 @@ use App\Models\Product;
 use App\Models\Promotion;
 use App\Http\Requests\StorePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
+use App\Services\PromotionService;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
+    private $promotionService;
+
+    public function __construct(PromotionService $service)
+    {
+        $this->promotionService = $service;
+    }
+
+
+
     public function index(Request $request)
     {
         $filter = $request->filter;
-        if (!empty($filter)) {
-            $promotions = Promotion::query()
-                ->whereHas('translations', function ($query) use ($filter) {
-                    $query->where('promotionName', 'like', '%'.$filter.'%');
-                })
-                ->paginate();
-        } else {
-            $promotions = Promotion::query()->paginate();
-        }
+        $promotions = $this->promotionService->searchItems($request);
         return view('dashboard.promotion.index', compact('promotions', 'filter'));
     }
 
@@ -34,9 +36,6 @@ class PromotionController extends Controller
         $products = Product::all();
         $manufacturers = Manufacturer::all();
         $discounts = Discount::all();
-
-
-
         return view(
             'dashboard.promotion.create',
             compact('categories', 'products', 'manufacturers', 'discounts')
@@ -45,33 +44,7 @@ class PromotionController extends Controller
 
     public function store(StorePromotionRequest $request)
     {
-        $promotion = Promotion::query()->create($request->only('en', 'me'));
-        $filteredProducts = Product::query()
-            ->join('category_product', 'products.id', '=', 'product_id')
-            ->join('categories', 'categories.id', '=', 'category_product.category_id')
-            ->when($request->category, function ($query) use ($request) {
-                $query->whereIn("category_product.category_id", $request->category);
-            })
-            ->when($request->products, function ($query) use ($request) {
-                $query->whereIn("category_product.product_id", $request->products);
-            })
-            ->when($request->price_from, function ($query) use ($request) {
-                $query->where("products.productPrice", ">=", $request->price_from);
-            })
-            ->when($request->price_to, function ($query) use ($request) {
-                $query->where("products.productPrice", "<=", $request->price_to);
-            })
-            ->when($request->manufacturer, function ($query) use ($request) {
-                $query->where("products.manufacturer_id", "=", $request->manufacturer);
-            })
-            ->select(['products.id'])
-            ->distinct()
-            ->get();
-
-        $promotion->products()->attach($filteredProducts);
-        if ($request->has('discount')) {
-            $promotion->discounts()->attach($request->discount);
-        }
+        $this->promotionService->createPromotion($request);
         return redirect()->route('promotion.index')->withToastSuccess('Promotion created successfully!');
     }
 
@@ -102,47 +75,18 @@ class PromotionController extends Controller
 
     public function destroy(Promotion $promotion)
     {
-        $promotion->delete();
+        $this->promotionService->deletePromotion($promotion);
         return redirect()->route('promotion.index')->withToastSuccess('Promotion deleted successfully!');
     }
 
-    public function removeProductFromPromotion(Request $request)
+    public function removeProductFromPromotion(Promotion $promotion, Product $product)
     {
-        $promotion = Promotion::findOrFail($request->promotion);
-        $promotion->products()->detach($request->product);
+        $this->promotionService->deleteProductFromPromotion($promotion, $product);
         return redirect()->back()->withToastSuccess('Product deleted from promotion successfully!');
     }
 
     public function filterProducts(Request $request)
     {
-        $filteredProducts = Product::query()->with('images')->with('manufacturer')
-                ->join('category_product', 'products.id', '=', 'product_id')
-                ->join('categories', 'categories.id', '=', 'category_product.category_id')
-                ->join('countries', 'countries.id', '=', 'products.country_id')
-                ->when($request->category, function ($query) use ($request) {
-                    $query->whereIn("category_product.category_id", $request->category);
-                })
-                ->when($request->products, function ($query) use ($request) {
-                    $query->whereIn("category_product.product_id", $request->products);
-                })
-                ->when($request->price_from, function ($query) use ($request) {
-                    $query->where("products.productPrice", ">=", (float) $request->price_from);
-                })
-                ->when($request->price_to, function ($query) use ($request) {
-                    $query->where("products.productPrice", "<=", (float) $request->price_to);
-                })
-                ->when($request->manufacturingDateStart, function ($query) use ($request) {
-                    $query->where("products.productManufacturingDate", ">=", $request->manufacturingDateStart);
-                })
-                ->when($request->manufacturingDateEnd, function ($query) use ($request) {
-                    $query->where("products.productManufacturingDate", "<=", $request->manufacturingDateEnd);
-                })
-                ->when($request->manufacturer, function ($query) use ($request) {
-                    $query->where("products.manufacturer_id", "=", $request->manufacturer);
-                })
-                ->selectRaw('products.*')
-                ->distinct()
-                ->get();
-        return $filteredProducts;
+        return $this->promotionService->filterItems($request);
     }
 }

@@ -1,7 +1,7 @@
 <x-dashboard>
     <div class="container px-6 mx-auto grid my-4">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit product : {{$product->productName}}
+            Edit product : {{$product->product_name}}
         </h2>
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -11,30 +11,30 @@
                 <!-- title -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
-                    <input name="en[productName]"
+                    <input name="en[product_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1"
-                           value="{{$product->translations[0]->productName}}">
+                           value="{{$product->translations[0]->product_name}}">
                 </label>
 
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product name</span>
                     <span class="text-red-600">[ME]</span>
-                    <input name="me[productName]"
+                    <input name="me[product_name]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1"
-                           value="{{$product->translations[1]->productName}}">
+                           value="{{$product->translations[1]->product_name}}">
                 </label>
                 <!--title -->
 
                 <!-- Price -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product price</span>
-                    <input name="productPrice"
+                    <input name="product_price"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12"
-                           value="{{$product->productPrice}}">
+                           value="{{$product->product_price}}">
                 </label>
                 <!-- End price -->
 
@@ -61,38 +61,38 @@
                 <!-- Description -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
-                    <textarea name="en[productDescription]" rows="6"
+                    <textarea name="en[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product">{{$product->translations[0]->productDescription}}</textarea>
+                              placeholder="Description of your product">{{$product->translations[0]->product_description}}</textarea>
                 </label>
 
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Product description</span>
                     <span class="text-red-600">[ME]</span>
-                    <textarea name="me[productDescription]" rows="6"
+                    <textarea name="me[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                              placeholder="Description of your product">{{$product->translations[1]->productDescription}}</textarea>
+                              placeholder="Description of your product">{{$product->translations[1]->product_description}}</textarea>
                 </label>
                 <!-- End discount price -->
 
                 <!-- Slide link -->
                 <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Manufacturing date</span>
-                    <input type="date" name="productManufacturingDate"
+                    <input type="date" name="product_manufacturing_date"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="24"
-                    value="{{$product->productManufacturingDate}}">
+                    value="{{$product->product_manufacturing_date}}">
                 </label>
                 <!-- End slide link -->
 
 
                 <!-- Slide link -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Months of warrancy</span>
-                    <input name="productMonthsOfWarranty"
+                    <span class="text-gray-700 dark:text-gray-400">Months of warranty</span>
+                    <input name="product_months_of_warranty"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="24"
-                           value="{{$product->productMonthsOfWarranty}}">
+                           value="{{$product->product_months_of_warranty}}">
                 </label>
                 <!-- End slide link -->
 
@@ -106,7 +106,7 @@
                             <option></option>
                             @foreach($countries as $country)
                                 <option
-                                    value="{{$country->id}}" {{ $product->country_id == $country->id ? 'selected' : ''}}>{{$country->countryName}}</option>
+                                    value="{{$country->id}}" {{ $product->country_id == $country->id ? 'selected' : ''}}>{{$country->country_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -121,10 +121,10 @@
                             id="select-category" name="category[]" multiple
                             autocomplete="off">
                             @foreach ($product->categories as $ct)
-                                <option value="{{$ct->id}}" selected>{{$ct->categoryName}}</option>
+                                <option value="{{$ct->id}}" selected>{{$ct->category_name}}</option>
                             @endforeach
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}">{{$category->categoryName}}</option>
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -141,7 +141,7 @@
                             <option></option>
                             @foreach($manufacturers as $manufacturer)
                                 <option
-                                    value="{{$manufacturer->id}}" {{ $product->manufacturer_id == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturerName}}</option>
+                                    value="{{$manufacturer->id}}" {{ $product->manufacturer_id == $manufacturer->id ? 'selected' : ''}}>{{$manufacturer->manufacturer_name}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -150,7 +150,7 @@
                 <div class="flex space-x-4">
                     @foreach($product->images as $image)
                         <div class="rounded h-96">
-                            <img class="object-fill h-64 w-64" src="/public/img/{{$image->fileName}}" alt=""
+                            <img class="object-fill h-64 w-64" src="/public/img/{{$image->file_name}}" alt=""
                                  loading="lazy">
                         </div>
                     @endforeach

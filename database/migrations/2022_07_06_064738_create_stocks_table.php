@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('size_id')->constrained('sizes');
             $table->unique(['product_id','color_id','size_id']);
             $table->integer('quantity');
-            $table->string('unitOfMeasure');
+            $table->string('unit_of_measure');
             $table->timestamps();
         });
     }

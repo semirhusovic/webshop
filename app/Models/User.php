@@ -22,6 +22,7 @@ class User extends Authenticatable
         'last_name',
         'phone',
         'email',
+        'role_id',
         'password',
     ];
 
@@ -44,11 +45,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function products(){
-        return $this->belongsToMany(Product::class);
+    protected $with = ['role'];
+    protected $perPage = 10;
+
+
+    public function cart(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Cart::class);
     }
 
-    public function cart() {
-        return $this->hasOne(Cart::class);
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }
