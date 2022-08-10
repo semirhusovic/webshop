@@ -38,16 +38,34 @@ const fd = (e, csrf_token) => {
 
 }
 const fillTable = (data) => {
-    if (data.length > 0) {
-        document.getElementById('products-table').classList.remove('hidden')
-    }
 
     let rows = '';
-    acco = ''
-    data.forEach((element,index) => {
+    let accorditionContainer = document.getElementById('accord');
+    accorditionContainer.innerHTML = '';
+    data.forEach((element, index) => {
+        let item = `<div class="tab w-full overflow-hidden border-t">
+                        <input class="absolute opacity-0" id="tab-multi-${index}" type="checkbox" name="tabs">
+                        <label class="block px-5 py-3 leading-normal cursor-pointer" for="tab-multi-${index}">#${index}</label>
+                        <div id="content-here" class="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
+                            <div id="products-table" class="w-full overflow-hidden rounded-lg shadow-xs">
+                                <div class="w-full overflow-x-auto">
+                                     <table class="w-full whitespace-no-wrap">
+                                         <thead>
+                                            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                                 <th class="px-4 py-3">Title</th>
+                                                 <th class="px-4 py-3">Price</th>
+                                                 <th class="px-4 py-3">Manufacturer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-${index}" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-// inner = document.getElementById('accordionExample').innerHTML
-//         inner +=
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+        accorditionContainer.insertAdjacentHTML("beforeend", item);
         element.forEach(e => {
             ids += e.id + ' '
             rows = rows +
@@ -74,10 +92,11 @@ ${e.total_price}
 ${e.manufacturer.manufacturer_name}
             </td>
         </tr>`;
-            document.getElementById('tbody').innerHTML = rows;
         })
+        document.getElementById(`tbody-${index}`).innerHTML = rows;
+        rows = ''
         document.getElementById('filteredIds').value = ids;
-        console.log(document.getElementById('filteredIds').value)
+        // console.log(document.getElementById('filteredIds').value)
     })
 
 }
