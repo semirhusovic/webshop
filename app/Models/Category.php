@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
-    protected $with = ['translations'];
+    protected $with = ['translations','subcategories'];
     protected $guarded = [];
     protected $perPage = 5;
     public $translatedAttributes = ['category_name'];
@@ -20,10 +20,14 @@ class Category extends Model implements TranslatableContract
         return $this->belongsToMany(Product::class);
     }
 
-    public function subcategories(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Category::class)->with(['subcategories' => function ($query) {
-            $query->withCount('products');
-        }]);
+//    public function subcategories(): \Illuminate\Database\Eloquent\Relations\HasMany
+//    {
+//        return $this->hasMany(Category::class)->with(['subcategories' => function ($query) {
+//            $query->withCount('products');
+//        }]);
+//    }
+
+    public function subcategories() {
+        return $this->hasMany(Category::class);
     }
 }

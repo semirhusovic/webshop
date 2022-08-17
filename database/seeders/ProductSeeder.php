@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
             'product_price' => 150,
             'product_months_of_warranty' => 12,
             'product_manufacturing_date' => '2022-07-21',
+            'unit_of_measure' => 'piece',
             'country_id' => 1,
             'manufacturer_id' => 1,
         ]);

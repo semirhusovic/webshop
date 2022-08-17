@@ -49,7 +49,6 @@
                         </td>
                     </tr>
                 @endif
-                {{$stocks}}
                 @foreach($stocks as $stock)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
@@ -64,6 +63,7 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{$stock->color->color_name}}
+                            <input type="color" value="{{$stock->color->hexcode}}" disabled class="rounded-lg" />
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{$stock->size->size_name}}

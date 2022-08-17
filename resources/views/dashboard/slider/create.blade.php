@@ -13,7 +13,7 @@
 
                 <!-- Slide title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Title</span>
+                    <span class="text-gray-700 dark:text-gray-400">Title*</span>
                     <input value="{{old('en[title]')}}" name="en[title]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Slide name">
@@ -22,7 +22,7 @@
 
                 <!-- Slide title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Title </span> <span class="text-red-600">[ME]</span>
+                    <span class="text-gray-700 dark:text-gray-400">Title* </span> <span class="text-red-600">[ME]</span>
                     <input value="{{old('me[title]')}}" name="me[title]"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Slide name">
@@ -31,7 +31,7 @@
 
                 <!-- Slide duration -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Duration</span>
+                    <span class="text-gray-700 dark:text-gray-400">Duration*</span>
                     <input value="{{old('duration')}}" type="number" min="1" max="15" name="duration"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="3">
@@ -40,7 +40,7 @@
 
                 <!-- Slide link -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Link</span>
+                    <span class="text-gray-700 dark:text-gray-400">Link*</span>
                     <input value="{{old('link')}}" name="link" type="url"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="http://www.google.com">
@@ -50,7 +50,7 @@
 
                 <!-- Slide position -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Position</span>
+                    <span class="text-gray-700 dark:text-gray-400">Position*</span>
                     <input value="{{old('position')}}" type="number" min="1" max="15" name="position"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="3">
@@ -61,7 +61,7 @@
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
-                  Activate slide
+                  Activate slide*
                 </span>
                         <select name="isActive"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
@@ -73,7 +73,7 @@
 
 
                 <div class="my-5 text-sm">
-                    <label class="flex items-center dark:text-gray-400">Choose an image</label>
+                    <label class="flex items-center dark:text-gray-400">Choose an image*</label>
                     <input type="file" accept=".jpg,.jpeg,.png,"
                            class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            required name="image[]">

@@ -38,15 +38,15 @@
     {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />--}}
 
 </head>
-<body class="h-screen">
+<body class="h-screen overflow-hidden">
 {{--h-screen--}}
 <div
-    class="flex bg-gray-50 dark:bg-gray-900"
+    class="flex h-screen bg-gray-50 dark:bg-gray-900"
     :class="{ 'overflow-hidden': isSideMenuOpen }"
 >
     <!-- Desktop sidebar -->
     <aside
-        class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
+        class="z-20 min-h-screen w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
     >
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a
@@ -325,6 +325,72 @@
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
+                    @if(str_contains(Route::currentRouteName(),'color'))
+                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                              aria-hidden="true"></span>
+                    @endif
+
+                    <a
+                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800
+                        @if(str_contains(Route::currentRouteName(),'color'))
+                        text-gray-800 dark:hover:text-gray-200 dark:text-gray-100
+                        @else
+                        dark:hover:text-gray-200
+                        @endif
+                        "
+                        href="{{route('color.index')}}"
+                    >
+                        <svg
+                            class="w-5 h-5"
+                            aria-hidden="true"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                            ></path>
+                        </svg>
+                        <span class="ml-4">Color</span>
+                    </a>
+                </li>
+                <li class="relative px-6 py-3">
+                    @if(str_contains(Route::currentRouteName(),'size'))
+                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                              aria-hidden="true"></span>
+                    @endif
+
+                    <a
+                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800
+                        @if(str_contains(Route::currentRouteName(),'size'))
+                        text-gray-800 dark:hover:text-gray-200 dark:text-gray-100
+                        @else
+                        dark:hover:text-gray-200
+                        @endif
+                        "
+                        href="{{route('size.index')}}"
+                    >
+                        <svg
+                            class="w-5 h-5"
+                            aria-hidden="true"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                            ></path>
+                        </svg>
+                        <span class="ml-4">Size</span>
+                    </a>
+                </li>
+                <li class="relative px-6 py-3">
                     @if(str_contains(Route::currentRouteName(),'stock'))
                         <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
@@ -393,6 +459,11 @@
                         </a>
                     </li>
                 @endcan
+
+
+
+
+
                 {{--                <li class="relative px-6 py-3">--}}
                 {{--                    <a--}}
                 {{--                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"--}}
@@ -1269,8 +1340,10 @@
                 </ul>
             </div>
         </header>
-        <main class="h-full overflow-y-auto my-2 min-h-screen">
+        <main class="h-full overflow-y-auto my-2">
+            <div class="mb-8">
             {{ $slot }}
+            </div>
         </main>
     </div>
 </div>

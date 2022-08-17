@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Stock;
 use App\Models\User;
 use App\Services\CartService;
 use App\Services\SliderService;
@@ -43,7 +44,10 @@ class CartController extends Controller
 
     public function getUserCartProducts(Cart $cart)
     {
-        return CartResource::collection($cart->products);
+        return CartResource::collection($cart->stocks);
+
+
+//        return CartResource::collection($cart->products);
 //        return auth()->user()->cart->products;
     }
 }

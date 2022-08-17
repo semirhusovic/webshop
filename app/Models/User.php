@@ -44,9 +44,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     protected $with = ['role'];
-    protected $perPage = 10;
+    protected $perPage = 5;
 
 
     public function cart(): \Illuminate\Database\Eloquent\Relations\HasOne

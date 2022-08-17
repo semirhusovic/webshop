@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('product_discount_price')->nullable();
             $table->integer('product_months_of_warranty');
             $table->date('product_manufacturing_date');
+            $table->string('unit_of_measure');
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('manufacturer_id')->constrained('manufacturers');
             $table->timestamps();

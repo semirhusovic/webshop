@@ -17,19 +17,23 @@ class ColorSeeder extends Seeder
     {
         Color::query()->create([
             'color_name:en' => 'Black',
-            'color_name:me' => 'Crna'
+            'color_name:me' => 'Crna',
+            'hexcode' => '#000000'
         ]);
         Color::query()->create([
             'color_name:en' => 'Yellow',
-            'color_name:es' => 'Zuta'
+            'color_name:me' => 'Zuta',
+            'hexcode' => '#ffff00'
         ]);
         Color::query()->create([
             'color_name:en' => 'Blue',
-            'color_name:es' => 'Plava'
+            'color_name:me' => 'Plava',
+            'hexcode' => '#009dff'
         ]);
         Color::query()->create([
             'color_name:en' => 'Purple',
-            'color_name:es' => 'Ljubicasta'
+            'color_name:me' => 'Ljubicasta',
+            'hexcode' => '#800080'
         ]);
     }
 }

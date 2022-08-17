@@ -167,11 +167,11 @@
                         </span>
                             </td>
                             <td class="px-4 py-3 text-xs">
-                                {{$order->billingAddress}}
+                                {{$order->billing_address}}
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{$order->dateOfOrdering}}
+                                {{$order->created_at}}
                             </td>
                         </tr>
                     @endforeach

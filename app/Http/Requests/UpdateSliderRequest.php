@@ -27,7 +27,7 @@ class UpdateSliderRequest extends FormRequest
             'link' => ['required','string','min:5','max:40'],
             'duration' => ['required','integer','min:1','max:15'],
             'isActive' => ['required'],
-            'position' => ['required','integer','min:1','max:5'],
+            'position' => ['required','integer','min:1','max:15'],
             'image.*' => ['required','mimes:jpeg,png,jpg,webp'],
         ];
         foreach (config('translatable.locales') as $locale) {

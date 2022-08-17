@@ -24,8 +24,8 @@ class SliderService
             if ($request->file('image')) {
                 deleteImages($slider->image);
                 uploadImages($request, 'App\Models\Slider', $slider->id);
-                $slider->updateOrFail($request->except('image'));
             }
+                $slider->updateOrFail($request->except('image'));
         });
     }
 

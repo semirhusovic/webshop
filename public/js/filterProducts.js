@@ -43,11 +43,11 @@ const fillTable = (data) => {
     let accorditionContainer = document.getElementById('accord');
     accorditionContainer.innerHTML = '';
     data.forEach((element, index) => {
-        let item = `<div class="tab w-full overflow-hidden border-t">
+        let item = `<div class="tab w-full overflow-hidden border-b">
                         <input class="absolute opacity-0" id="tab-multi-${index}" type="checkbox" name="tabs">
                         <label class="block px-5 py-3 leading-normal cursor-pointer" for="tab-multi-${index}">#${index}</label>
-                        <div id="content-here" class="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal">
-                            <div id="products-table" class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div id="content-here" class="tab-content overflow-hidden border-l-2 border-indigo-500 leading-normal">
+                            <div id="products-table" class="w-full overflow-hidden rounded-lg shadow-xs p-5">
                                 <div class="w-full overflow-x-auto">
                                      <table class="w-full whitespace-no-wrap">
                                          <thead>

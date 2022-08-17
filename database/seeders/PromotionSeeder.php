@@ -32,15 +32,18 @@ class PromotionSeeder extends Seeder
 
         DB::table('product_promotion')->insert([
             'promotion_id' => rand(1, 3),
-            'product_id' => fake()->unique()->randomNumber(1, 9)
+            'product_id' => 1
+//                fake()->unique()->randomNumber(1, 1)
         ]);
         DB::table('product_promotion')->insert([
             'promotion_id' => rand(1, 3),
-            'product_id' => fake()->unique()->randomNumber(1, 9)
+            'product_id' => 1
+//                fake()->unique()->randomNumber(1, 1)
         ]);
         DB::table('product_promotion')->insert([
             'promotion_id' => rand(1, 3),
-            'product_id' => fake()->unique()->randomNumber(1, 9)
+            'product_id' => 1
+//                fake()->unique()->randomNumber(1, 1)
         ]);
     }
 }

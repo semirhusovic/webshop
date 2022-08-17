@@ -13,6 +13,7 @@ class Color extends Model implements TranslatableContract
     protected $with = ['translations'];
     public $translatedAttributes = ['color_name'];
     protected $guarded = [];
+    protected $perPage = 5;
 
     public function stocks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

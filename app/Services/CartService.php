@@ -4,13 +4,16 @@ namespace App\Services;
 
 class CartService
 {
+    /*
+     *
+     */
     public function addToCart($cart, $product): void
     {
         $exists = $cart->products->where('id', '=', $product->id);
         if (count($exists) > 0) {
             $cart->products()->updateExistingPivot($product->id, [
-            'quantity' => $exists->first()->pivot->quantity + 1,
-        ]);
+                'quantity' => $exists->first()->pivot->quantity + 1,
+            ]);
         } else {
             $cart->products()->attach($product->id, ['quantity' => 1]);
         }
@@ -30,7 +33,8 @@ class CartService
         }
     }
 
-    public function deleteFromCart($cart,$product) : void {
+    public function deleteFromCart($cart, $product) : void
+    {
         $cart->products()->detach($product->id);
     }
 }

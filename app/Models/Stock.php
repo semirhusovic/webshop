@@ -10,6 +10,7 @@ class Stock extends Model
     use HasFactory;
     protected $with = ['color','product','size'];
     protected $guarded = [];
+    protected $perPage = 5;
 
     public function color()
     {

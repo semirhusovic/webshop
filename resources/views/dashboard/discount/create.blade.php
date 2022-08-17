@@ -6,14 +6,14 @@
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
-            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+            <x-auth-validation-errors class="mb-4" :errors="$errors"></x-auth-validation-errors>
 
             <form action="{{route('discount.store')}}" method="POST">
                 @csrf
 
                 <!-- Slide title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Discount name</span>
+                    <span class="text-gray-700 dark:text-gray-400">Discount name*</span>
                     <input value="{{old('discount_name')}}" name="discount_name"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type name here">
@@ -22,7 +22,7 @@
 
                 <!-- Slide title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Discount value</span>
+                    <span class="text-gray-700 dark:text-gray-400">Discount value*</span>
                     <input value="{{old('value')}}" name="value"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Type value here">
@@ -32,7 +32,7 @@
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
-                  Discount type
+                  Discount type*
                 </span>
                         <select name="type"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
@@ -44,7 +44,7 @@
                 </div>
 
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Valid until</span>
+                    <span class="text-gray-700 dark:text-gray-400">Valid until*</span>
                     <input type="datetime-local" name="expired_at"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                 </label>

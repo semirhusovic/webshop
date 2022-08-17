@@ -24,7 +24,8 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'product_price' => ['required','numeric'],
+            'product_price' => ['required','numeric','gt:0'],
+            'unit_of_measure' => ['required','string'],
             'product_months_of_warranty' => ['required','integer'],
             'image' => ['required'],
             'image.*' => ['required','mimes:jpeg,png,jpg,webp'],

@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\StockController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +29,16 @@ Route::get('/product', [ProductController::class,'index']);
 
 Route::get('/sliders', [SliderController::class,'index']);
 
-Route::get('/stock/{stock}', [StockController::class,'show']);
+Route::get('/category', [CategoryController::class,'index']);
+
+Route::get('/stock/{product}/{size}', [StockController::class,'StockItemColors']);
+Route::get('/stock/{product}/', [StockController::class,'show']);
 
 
 Route::post('/cart-add/{cart}/{product}', [CartController::class,'addToCart'])->middleware('auth:sanctum');
 Route::post('/cart-remove/{cart}/{product}', [CartController::class,'removeFromCart'])->middleware('auth:sanctum');
 Route::post('/cart-delete/{cart}/{product}', [CartController::class,'deleteFromCart'])->middleware('auth:sanctum');
-Route::post('/get-user-cart/{cart}', [CartController::class,'getUserCartProducts'])->middleware('auth:sanctum');
+Route::get('/get-user-cart/{cart}', [CartController::class,'getUserCartProducts'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     return $request->user();

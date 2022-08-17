@@ -28,7 +28,6 @@ class UpdateStockRequest extends FormRequest
             'size_id' => ['required','integer'],
             'color_id' => ['required','integer'],
             'quantity' => ['required','integer'],
-            'unit_of_measure' => ['required','string']
         ];
     }
 }

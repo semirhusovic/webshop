@@ -13,7 +13,7 @@ class UpdateColorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,12 @@ class UpdateColorRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'color_name' => ['required', 'string', 'max:255'],
+        $rules =  [
+            //
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.color_name'] = 'required|string|max:40|min:3';
+        }
+        return $rules;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role->role_name == 'Super Admin' || auth()->user()->role->role_name == 'Admin') {
+        if (auth()->user()->role_id == Role::IS_SUPER_ADMIN || auth()->user()->role_id == Role::IS_SUPER_ADMIN) {
             return $next($request);
         } else {
-            return redirect('/');
+            return redirect('/')->withToastError('error', 'You are not admin!');
         }
     }
 }

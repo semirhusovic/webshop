@@ -16,9 +16,8 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
-
         if (request('change_language')) {
-            if(in_array(request('change_language'), (config('translatable.locales')))){
+            if (in_array(request('change_language'), (config('translatable.locales')))) {
                 session()->put('language', request('change_language'));
                 $language = request('change_language');
             }
@@ -35,5 +34,3 @@ class SetLocale
         return $next($request);
     }
 }
-
-

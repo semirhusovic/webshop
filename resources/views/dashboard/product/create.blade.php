@@ -13,7 +13,7 @@
 
                 <!-- title -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product name</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product name*</span>
                     <input name="en[product_name]" value="{{old('en[product_name]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="Product 1">
@@ -21,7 +21,7 @@
 
 
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product name</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product name*</span>
                     <span class="text-red-600">[ME]</span>
                     <input name="me[product_name]" value="{{old('me[product_name]')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
@@ -31,7 +31,7 @@
 
                 <!-- Price -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product price</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product price*</span>
                     <input name="product_price" value="{{old('product_price')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="12">
@@ -56,14 +56,14 @@
 
                 <!-- Description -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product description</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product description*</span>
                     <textarea name="en[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                               placeholder="Description of your product">{{old('en[product_description]')}}</textarea>
                 </label>
 
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Product description</span>
+                    <span class="text-gray-700 dark:text-gray-400">Product description*</span>
                     <span class="text-red-600">[ME]</span>
                     <textarea name="me[product_description]" rows="6"
                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
@@ -71,9 +71,16 @@
                 </label>
                 <!-- End discount price -->
 
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Unit of measure</span>
+                    <input value="{{old('unit_of_measure')}}" name="unit_of_measure"
+                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                           placeholder="Type here">
+                </label>
+
                 <!-- Slide link -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Manufacturing date</span>
+                    <span class="text-gray-700 dark:text-gray-400">Manufacturing date*</span>
                     <input type="date" name="product_manufacturing_date" value="{{old('product_manufacturing_date')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             >
@@ -83,7 +90,7 @@
 
                 <!-- Slide link -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Months of warrancy</span>
+                    <span class="text-gray-700 dark:text-gray-400">Months of warrancy*</span>
                     <input name="product_months_of_warranty" value="{{old('product_months_of_warranty')}}"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="24">
@@ -93,7 +100,7 @@
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
-                  Choose country
+                  Choose country*
                 </span>
                         <select name="country_id"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
@@ -110,7 +117,7 @@
                 <div>
                     <label class="block mt-4 text-sm">
                          <span class="text-gray-700 dark:text-gray-400">
-                  Choose category
+                  Choose category*
                 </span>
                     <select
                         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
@@ -128,7 +135,7 @@
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
-                  Choose manufacturer
+                  Choose manufacturer*
                 </span>
                         <select name="manufacturer_id"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
@@ -172,7 +179,6 @@
             <script>
                 new TomSelect("#select-category", {
                     plugins: ['remove_button'],
-                    create: true,
                 });
             </script>
         </div>

@@ -16,7 +16,7 @@
     padding: 1.25rem; /*.p-5*/
     border-left-width: 2px; /*.border-l-2*/
     border-color:#7e3af2; /*.border-indigo*/
-    background-color: #f8fafc; /*.bg-gray-100 */
+    /*background-color: #f8fafc; !*.bg-gray-100 *!*/
     color: #7e3af2; /*.text-indigo*/
 }
 /* Icon */
@@ -47,7 +47,7 @@
     font-weight:bold; /*.font-bold*/
     border-width: 1px; /*.border*/
     border-radius: 9999px; /*.rounded-full */
-    border-color: #b8c2cc; /*.border-grey*/
+    /*border-color: #b8c2cc; !*.border-grey*!*/
 }
 /* Icon formatting - open */
 .tab input[type=checkbox]:checked + label::after {
@@ -59,4 +59,16 @@
     transform: rotateX(180deg);
     background-color: #7e3af2; /*.bg-indigo*/
     color: #f8fafc; /*.text-grey-lightest*/
+}
+
+#cont {
+    padding: 0.5rem;
+}
+
+#accord {
+/*box-shadow: rgb(171, 118, 255) 0px 25px 50px -12px;*/
+}
+
+#products-table{
+    padding: 1rem;
 }

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
@@ -24,25 +26,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//Route::get('/', [CategoryController::class, 'index']);
-//Route::get('/category/{category}', [CategoryController::class, 'show'])->name('categories.show');
-//Route::get('/', [HomeController::class, 'index']);
-//Route::get('/cart', [HomeController::class, 'showCart'])->name('cart');
-//Route::get('/category/{id}', [HomeController::class, 'show'])->name('categories.show');
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
 
-
-//Route::get('/register', [CategoryController::class, 'show'])->name('categories.show');
-
-
-//Route::get('/dashboard', function () {
-//    return view('dashboard.index');
-//})->middleware(['auth'])->name('dashboard');
-
-Route::group(['prefix' => 'dashboard','middleware'=> ['auth','isAdmin'] ], function () {
+Route::group(['prefix' => 'dashboard','middleware'=> ['auth'] ], function () {
     Route::get('/', [HomeController::class,'index'])->name('dashboard');
     Route::resource('/slider', SliderController::class);
-    Route::POST('/products-by-category', [ProductController::class,'productsByCategory']);
+    Route::post('/products-by-category', [ProductController::class,'productsByCategory']);
     Route::resource('/product', ProductController::class);
+    Route::resource('/size', SizeController::class);
+    Route::resource('/color', ColorController::class);
     Route::resource('/country', CountryController::class);
     Route::resource('/manufacturer', ManufacturerController::class);
     Route::resource('/category', CategoryController::class);
@@ -50,7 +44,7 @@ Route::group(['prefix' => 'dashboard','middleware'=> ['auth','isAdmin'] ], funct
     Route::resource('/stock', StockController::class);
     Route::resource('/user', UserController::class)->except('show', 'create');
     Route::post('/promotion/remove-product/{promotion}/{product}', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
-    Route::POST('/promotion/filter-products', [PromotionController::class,'filterProducts']);
+    Route::post('/promotion/filter-products', [PromotionController::class,'filterProducts']);
     Route::resource('/promotion', PromotionController::class);
 });
 

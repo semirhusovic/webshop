@@ -3,17 +3,51 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ColorResource;
+use App\Http\Resources\StockResource;
+use App\Models\Product;
+use App\Models\Size;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
     //test
-    public function show($id)
+    public function show(Product $product)
     {
-        $st = Stock::query()
-                    ->where('product_id', '=', $id)
-                    ->get();
-        return $st;
+        return StockResource::collection(
+            Stock::query()
+                ->with('size')
+                ->where('product_id', '=', $product->id)
+                ->groupBy('size_id')
+                ->get()
+        );
     }
+
+    public function StockItemColors(Product $product, Size $size)
+    {
+        return ColorResource::collection(
+            Stock::query()
+//                ->join('colors', 'color_id', '=', 'colors.id')
+                ->with('color')
+                ->with('size')
+                ->where('product_id', '=', $product->id)
+                ->where('size_id', '=', $size->id)
+//                ->select('quantity', 'colors.*')
+                ->get()
+        );
+    }
+
+//        return
+//            Stock::query()
+////                ->join('colors', 'color_id', '=', 'colors.id')
+//                ->with('color')
+//                ->with('size')
+//                ->where('product_id', '=', $product->id)
+//                ->where('size_id', '=', $size->id)
+////                ->select('quantity', 'colors.*')
+//                ->get();
+//    }
+
+
 }

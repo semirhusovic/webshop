@@ -14,7 +14,7 @@
                 <!-- Slide title -->
                 <label class="block w-full text-sm mr-6">
                          <span class="text-gray-700 dark:text-gray-400">
-                            Chose product
+                            Choose product*
                          </span>
                     <select
                         class="block w-full mt-1 text-sm dark:text-white-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
@@ -30,7 +30,7 @@
 
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Choose size</span>
+                        <span class="text-gray-700 dark:text-gray-400">Choose size*</span>
                         <select name="size_id"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                             <option value=""></option>
@@ -44,7 +44,7 @@
 
                 <div class="mb-4">
                     <label class="block mt-4 text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Choose color</span>
+                        <span class="text-gray-700 dark:text-gray-400">Choose color*</span>
                         <select name="color_id"
                                 class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                             <option value=""></option>
@@ -58,18 +58,18 @@
 
                 <!-- Slide duration -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Available quantity</span>
+                    <span class="text-gray-700 dark:text-gray-400">Available quantity*</span>
                     <input value="{{old('quantity')}}" type="number" min="1" name="quantity"
                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            placeholder="3">
                 </label>
 
-                <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Unit of measure</span>
-                    <input value="{{old('unit_of_measure')}}" name="unit_of_measure"
-                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                           placeholder="Type here">
-                </label>
+{{--                <label class="block text-sm">--}}
+{{--                    <span class="text-gray-700 dark:text-gray-400">Unit of measure</span>--}}
+{{--                    <input value="{{old('unit_of_measure')}}" name="unit_of_measure"--}}
+{{--                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"--}}
+{{--                           placeholder="Type here">--}}
+{{--                </label>--}}
 
     <div class="my-8">
         <button

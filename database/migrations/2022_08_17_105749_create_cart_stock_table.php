@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,14 +12,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('cart_stock', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('color_id')->constrained('colors');
-            $table->foreignId('size_id')->constrained('sizes');
-            $table->unique(['product_id','color_id','size_id']);
             $table->integer('quantity');
-            $table->string('unit_of_measure');
+            $table->foreignId('cart_id')->constrained('carts');
+            $table->foreignId('stock_id')->constrained('stocks');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('cart_stock');
     }
 };
