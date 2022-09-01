@@ -7,12 +7,7 @@ use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Stock;
-use App\Models\User;
 use App\Services\CartService;
-use App\Services\SliderService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -23,22 +18,22 @@ class CartController extends Controller
         $this->cartService = $service;
     }
 
-    public function addToCart(Cart $cart, Product $product)
+    public function addToCart(Cart $cart, Product $product, Stock $stock)
     {
-        $this->cartService->addToCart($cart, $product);
+        $this->cartService->addToCart($cart, $stock);
         return response(['message' => 'Product added to cart!'], 200);
     }
 
 
-    public function removeFromCart(Cart $cart, Product $product)
+    public function removeFromCart(Cart $cart, Product $product, Stock $stock)
     {
-        $this->cartService->removeFromCart($cart, $product);
+        $this->cartService->removeFromCart($cart, $stock);
         return response(['message' => 'Product removed from cart!'], 204);
     }
 
-    public function deleteFromCart(Cart $cart, Product $product)
+    public function deleteFromCart(Cart $cart, Product $product, Stock $stock)
     {
-        $this->cartService->deleteFromCart($cart, $product);
+        $this->cartService->deleteFromCart($cart, $stock);
         return response(['message' => 'Product deleted from cart!'], 204);
     }
 

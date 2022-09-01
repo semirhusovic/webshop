@@ -46,8 +46,9 @@ Route::group(['prefix' => 'dashboard','middleware'=> ['auth'] ], function () {
     Route::post('/promotion/remove-product/{promotion}/{product}', [PromotionController::class,'removeProductFromPromotion'])->name('remove-promotion-product');
     Route::post('/promotion/filter-products', [PromotionController::class,'filterProducts']);
     Route::resource('/promotion', PromotionController::class);
+    Route::post('/user/import', [UserController::class,'import'])->name('users.import');
+    Route::get('/user/export', [UserController::class,'export'])->name('users.export');
+    Route::get('/report', [HomeController::class,'reportindex'])->name('reports.index');
 });
-
-
 
 require __DIR__.'/auth.php';

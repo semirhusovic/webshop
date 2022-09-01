@@ -2,6 +2,7 @@
 
 use App\Models\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 function uploadImages($request, $imageable_type, $imageable_id): void
 {
@@ -28,4 +29,16 @@ function deleteImages($images):void
             File::delete('public/img/'. $img->file_name);
         }
     }
+}
+
+function createSignature($method, $body, $contentType, $timestamp, $reqUri, $old=false)
+{
+    $bodyJson = str_replace("\r", "", $body);
+    $hash =  $old ? md5($bodyJson) : hash('sha512', $bodyJson, false) ;
+    Log::info('hash: '.$hash);
+    Log::info($reqUri);
+    $parts = array($method,$hash,$contentType,$timestamp,$reqUri);
+    $str = implode("\n", $parts);
+    $digest = hash_hmac('sha512', $str, 'Gmi2wSwAv14q3sEo9MBFvoXVpz3ZPK', true);
+    return base64_encode($digest);
 }

@@ -2,39 +2,41 @@
 
 namespace App\Services;
 
+use App\Exceptions\UnavailableQuantity;
+
 class CartService
 {
     /*
      *
      */
-    public function addToCart($cart, $product): void
+    public function addToCart($cart, $stock): void
     {
-        $exists = $cart->products->where('id', '=', $product->id);
+        $exists = $cart->stocks->where('id', '=', $stock->id);
         if (count($exists) > 0) {
-            $cart->products()->updateExistingPivot($product->id, [
+            $cart->stocks()->updateExistingPivot($stock->id, [
                 'quantity' => $exists->first()->pivot->quantity + 1,
             ]);
         } else {
-            $cart->products()->attach($product->id, ['quantity' => 1]);
+            $cart->stocks()->attach($stock->id, ['quantity' => 1]);
         }
     }
 
-    public function removeFromCart($cart, $product): void
+    public function removeFromCart($cart, $stock): void
     {
-        $quantity = $cart->products->where('id', '=', $product->id)->first()->pivot->quantity;
+        $quantity = $cart->stocks->where('id', '=', $stock->id)->first()->pivot->quantity;
         if ($quantity>1) {
-            $cart->products()->updateExistingPivot($product->id, [
+            $cart->stocks()->updateExistingPivot($stock->id, [
                 'quantity' => $quantity - 1,
             ]);
         }
 
         if ($quantity==1) {
-            $cart->products()->detach($product->id);
+            $cart->stocks()->detach($stock->id);
         }
     }
 
-    public function deleteFromCart($cart, $product) : void
+    public function deleteFromCart($cart, $stock) : void
     {
-        $cart->products()->detach($product->id);
+        $cart->stocks()->detach($stock->id);
     }
 }

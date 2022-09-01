@@ -5,20 +5,36 @@
         >
             User
         </h2>
-        <form method="GET">
-            <div class="flex mb-2">
-                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
-                    <div class="absolute inset-y-0 flex items-center pl-2">
-                        <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-                        </svg>
+        <div class="flex flex-row justify-around">
+            <form method="GET">
+                <div class="flex mb-2">
+                    <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+                        <div class="absolute inset-y-0 flex items-center pl-2">
+                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <input value="{{$filter}}" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Search for users" aria-label="Search" name="filter">
                     </div>
-                    <input value="{{$filter}}" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Search for users" aria-label="Search" name="filter">
+                    <button type="submit" class="md:inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        Search</button>
                 </div>
-                <button type="submit" class="md:inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    Search</button>
-            </div>
-        </form>
+            </form>
+
+            <a href="{{route('users.export')}}" class="w-fit ml-4 mb-2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Export</a>
+            <form id="import-data" class="p-0" action="{{route('users.import')}}" method="POST" enctype='multipart/form-data'>
+                @csrf
+
+                <button type="button" onclick="event => event.preventDefault()" class="px-4 ml-4 mb-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    <label for="import-file">
+                    Import
+                    </label>
+                </button>
+                    <input id="import-file" onchange="confirmImport(event)" type="file" class="hidden" name="import-file" />
+            </form>
+        </div>
+
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
@@ -92,4 +108,24 @@
     </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{asset('js/confirmDelete.js')}}"></script>
+        <script>
+            function confirmImport(e){
+                    e.preventDefault();
+                    // document.getElementById('import-data').submit();
+                    console.log(e);
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You will not be able to restore this insert",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#7e3af2',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, insert data!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                                document.getElementById('import-data').submit();
+                        }
+                    })
+            }
+        </script>
 </x-dashboard>

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('product_months_of_warranty');
             $table->date('product_manufacturing_date');
             $table->string('unit_of_measure');
-            $table->foreignId('country_id')->constrained('countries');
-            $table->foreignId('manufacturer_id')->constrained('manufacturers');
+            $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+            $table->foreignId('manufacturer_id')->constrained('manufacturers')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\UpdateUserRequest;
+use App\Imports\UsersImport;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -45,5 +48,18 @@ class UserController extends Controller
         $this->authorize('delete', $user);
         $this->userService->deleteUser($user);
         return redirect()->route('user.index')->withToastSuccess('User deleted successfully!');
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('import-file');
+        Excel::import(new UsersImport, $file, );
+
+        return redirect()->route('user.index')->withToastSuccess('Excel imported successfully!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

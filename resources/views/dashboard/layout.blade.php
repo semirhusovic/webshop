@@ -4,6 +4,9 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Windmill Dashboard</title>
+    <link href="{{ asset('bladewind/css/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('bladewind/js/helpers.js') }}"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
@@ -46,7 +49,7 @@
 >
     <!-- Desktop sidebar -->
     <aside
-        class="z-20 min-h-screen w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
+        class="z-20 min-h-screen hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
     >
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a

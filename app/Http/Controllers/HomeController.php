@@ -2,58 +2,25 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $users = User::query()->count();
         $products = Product::query()->count();
-        $orderNumber = Order::query()->count();
-        $orders = Order::query()->with('user')->paginate();
-        $money = Order::query()->sum('total_amount');
+        $orderNumber = Order::query()->active()->count();
+        $orders = Order::query()->with('user')->active()->paginate();
+        $money = Order::query()->active()->sum('total_amount');
 
         return view('dashboard.index', compact('users', 'products', 'orders', 'money', 'orderNumber'));
     }
 
-
-//    public function index()
-//    {
-//        $categories = Category::whereNull('category_id')
-//            ->with('subcategories')
-//            ->get();
-//
-//        $sliders = Slider::query()->where('isActive', '=', '1')->orderBy('order')->get();
-//        $products = Product::all();
-//        return view('welcome', compact('categories', 'sliders', 'products'));
-//    }
-
-//    public function show($id)
-//    {
-//        $category = Category::findOrFail($id);
-//        $category->load('subcategories.subcategories');
-//
-//        $subcategoryIDs = [$category->id];
-//        foreach ($category->subcategories as $subcategory) {
-//            $subcategoryIDs[] = $subcategory->id;
-//            foreach ($subcategory->subcategories as $subsubcategory) {
-//                $subcategoryIDs[] = $subsubcategory->id;
-//            }
-//        }
-//
-//        $products = Product::whereHas('categories', function ($query) use ($subcategoryIDs) {
-//            $query->whereIn('categories.id', $subcategoryIDs);
-//        })->get();
-//
-//        return view('categories.show', compact('category', 'products'));
-//    }
-
-//    public function showCart()
-//    {
-//        return view('frontend.cart');
-//    }
+    public function reportindex(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('dashboard.report.index');
+    }
 }

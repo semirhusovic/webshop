@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->decimal('invoice_total');
-            $table->decimal('invoice_discount');
-            $table->string('status');
+            $table->foreignId('status_id')->constrained('invoice_statuses');
             $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

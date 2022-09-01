@@ -28,26 +28,12 @@ class StockController extends Controller
     {
         return ColorResource::collection(
             Stock::query()
-//                ->join('colors', 'color_id', '=', 'colors.id')
                 ->with('color')
                 ->with('size')
                 ->where('product_id', '=', $product->id)
                 ->where('size_id', '=', $size->id)
-//                ->select('quantity', 'colors.*')
                 ->get()
         );
     }
-
-//        return
-//            Stock::query()
-////                ->join('colors', 'color_id', '=', 'colors.id')
-//                ->with('color')
-//                ->with('size')
-//                ->where('product_id', '=', $product->id)
-//                ->where('size_id', '=', $size->id)
-////                ->select('quantity', 'colors.*')
-//                ->get();
-//    }
-
 
 }
