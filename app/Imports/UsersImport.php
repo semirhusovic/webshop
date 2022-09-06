@@ -7,12 +7,14 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class UsersImport implements ToModel, WithHeadingRow
+class UsersImport implements ToModel, WithHeadingRow, WithValidation
 {
     private $roles;
     public function __construct()
@@ -32,6 +34,17 @@ class UsersImport implements ToModel, WithHeadingRow
             "password" => Hash::make('password'),
             "role_id" => $role->id
         ]);
+    }
+
+    public function rules(): array
+    {
+        return [
+            'first_name' => ['required', 'string',],
+            'last_name' => ['required', 'string',],
+            'phone' => ['required'],
+            'role' => ['required','string',Rule::in(['Buyer','Admin','Super Admin'])],
+            'email' => ['required', 'unique:users',],
+        ];
     }
 
 

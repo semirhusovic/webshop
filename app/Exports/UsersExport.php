@@ -16,14 +16,20 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements WithHeadings, FromCollection, WithMapping, WithColumnWidths, WithStyles
+class UsersExport implements WithHeadings, FromCollection, WithColumnWidths, WithStyles
 {
+
+    public function __construct($data) {
+        $this->data = $data;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection(): \Illuminate\Support\Collection
     {
-        return User::query()->with('role')->get();
+        return collect([$this->data]);
+//        return User::query()->with('role')->get();
     }
 
     public function headings(): array
@@ -37,16 +43,16 @@ class UsersExport implements WithHeadings, FromCollection, WithMapping, WithColu
         ];
     }
 
-    public function map($user): array
-    {
-        return [
-            $user->first_name,
-            $user->last_name,
-            $user->email,
-            $user->phone,
-            $user->role->role_name,
-        ];
-    }
+//    public function map($user): array
+//    {
+//        return [
+//            $user->first_name,
+//            $user->last_name,
+//            $user->email,
+//            $user->phone,
+//            $user->role->role_name,
+//        ];
+//    }
 
     public function columnWidths(): array
     {

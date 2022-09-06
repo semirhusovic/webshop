@@ -104,7 +104,8 @@
             </table>
         </div>
     </div>
-        {{ $users->links('vendor.pagination.custom-pagination') }}
+{{--        {{ $users->links('vendor.pagination.custom-pagination') }}--}}
+        {!! $users->appends(\Request::except('page'))!!}
     </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{asset('js/confirmDelete.js')}}"></script>

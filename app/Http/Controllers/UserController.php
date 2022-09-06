@@ -58,8 +58,8 @@ class UserController extends Controller
         return redirect()->route('user.index')->withToastSuccess('Excel imported successfully!');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        return $this->userService->exportUsers($request);
     }
 }

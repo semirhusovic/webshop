@@ -19,8 +19,7 @@ class PaymentService
 //                    "successUrl" => "http://127.0.0.1:3001/",
         "successUrl" => request()->headers->get('referer').'success',
         "errorUrl" => request()->headers->get('referer').'error',
-//                    "callbackUrl" => 'http://127.0.0.1:8000/api/order/'.$order->id,
-        "callbackUrl" => 'https://4ce5-94-102-224-245.eu.ngrok.io/api/order/'.$order->id,
+        "callbackUrl" => 'https://25a1-94-102-224-245.eu.ngrok.io/api/order/'.$order->id,
 //                    "callbackUrl" => 'https://webhook.site/5dfc7aa2-5bb7-418b-900e-2427ef6fa795',
         "customer" => [
             'firstName' => $request->first_name,

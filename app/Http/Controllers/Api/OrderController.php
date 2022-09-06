@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderRequest;
 use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -23,7 +24,7 @@ class OrderController extends Controller
         return $this->orderService->getUserOrders();
     }
 
-    public function create(Request $request)
+    public function create(StoreOrderRequest $request)
     {
         return $this->orderService->createOrder($request);
     }
